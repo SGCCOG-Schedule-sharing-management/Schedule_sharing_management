@@ -42,3 +42,4 @@ https://docs.google.com/spreadsheets/d/19b1TezU41100Lw7bQZLk6N7slGDdDj0ewdQWMT2b
 - アプリケーションの実装に使用したgem/bootstrapのリファレンスなどの記載は不要です。
 - 使用しない場合は、使用素材の項目をREADMEから削除してください。--># Schedule_sharing_management
 # Schedule_sharing_management
+# Schedule_sharing_management
