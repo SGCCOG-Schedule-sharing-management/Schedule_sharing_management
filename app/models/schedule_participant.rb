@@ -1,0 +1,2 @@
+class ScheduleParticipant < ApplicationRecord
+end
