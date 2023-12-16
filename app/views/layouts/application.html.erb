@@ -12,6 +12,56 @@
   </head>
 
   <body>
+        <%# binding.pry %>
+    <% if admin_signed_in? %>
+      <header class="admin_header">
+        <div class="header-content">
+          <%= link_to 'NaganoCake', admin_top_path, class: "logo" %>
+          <ul class="flex">
+            <li><%= link_to 'ユーザー一覧', admin_users_path %></li>
+            <li><%= link_to '本番一覧', %></li>
+            <li><%= link_to '予定管理', %></li>
+            <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+          </ul>
+          <%= form_tag(admin_search_path, method: :get) do %>
+            <%= text_field_tag "search[content]", "", :placeholder =>"ユーザー: 姓,名,セイ,メイ / 商品: 商品名" %>
+            <%= select_tag "search[model]", options_for_select({ "ユーザー" => "user", "予定" => "schedule" }) %>
+            <%= select_tag "search[method]", options_for_select({ "部分一致" => "partial", "前方一致" => "forward", "後方一致" => "backward", "完全一致" => "perfect" }) %>
+            <%= submit_tag '検索', class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </header>
+    <% elsif user_signed_in? %>
+      <header>
+        <div class="header-content">
+          <%= link_to 'NaganoCake', root_path, class: "logo" %>
+          <ul class="flex">
+            <p>ようこそ、<%= current_user.nickname %>さん!</p>
+            <li><%= link_to 'マイページ', mypage_path %></li>
+            <li><%= link_to '予定一覧', %></li>
+            <li><%= link_to '本番', %></li>
+            <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          </ul>
+        </div>
+      </header>
+    <% else %>
+      <header>
+        <div class="header-content">
+          <%= link_to 'NaganoCake', root_path, class: "logo" %>
+          <ul class="flex">
+            <li><%= link_to '本番一覧', %></li>
+            <li><%= link_to '新規登録', new_user_registration_path %></li>
+            <li><%= link_to 'ログイン', new_user_session_path %></li>
+          </ul>
+        </div>
+      </header>
+    <% end %>
+  <main>
     <%= yield %>
+  </main>
+   
+   <footer>
+     
+   </footer> 
   </body>
 </html>

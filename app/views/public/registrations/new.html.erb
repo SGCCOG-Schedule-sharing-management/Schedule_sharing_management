@@ -1,29 +1,67 @@
-<h2>Sign up</h2>
+<h2>新規ユーザー登録</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "public/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  名前
+  <%= f.label :first_name, "(姓)" %>
+  <%= f.text_field :first_name, autofocus: true, :placeholder =>"高良" %>
+  <%= f.label :last_name, "(名)" %>
+  <%= f.text_field :last_name, :placeholder =>"歌奏" %></br>
+
+  フリガナ
+  <%= f.label :first_name_kana, "(セイ)" %>
+  <%= f.text_field :first_name_kana, autofocus: true, :placeholder =>"コウラ" %>
+  <%= f.label :last_name_kana, "(メイ)" %>
+  <%= f.text_field :last_name_kana, :placeholder =>"カナデ" %></br>
+
+  <%= f.label :nickname, "ニックネーム" %>
+  <%= f.text_field :nickname, :placeholder =>"かなっぺ" %></br>
+
+  <%= f.label :birth_date, "生年月日" %>
+  <%= f.date_select :birth_date, start_year: Date.current.year - 100, end_year: Date.current.year, order: [:year, :month, :day], prompt: { year: '年', month: '月', day: '日' } %>
 
   <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
+    <%= f.label :telephone_number, "電話番号(数字のみ入力)"  %>
+    <%= f.text_field :telephone_number, :placeholder =>"09011112222", autocomplete: "telephone_number", class: "phone-number-input" %>
+  </div>
+
+
+
+  <div class="field">
+    <%= f.label :password, "パスワード(#{@minimum_password_length}文字以上)"%>
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "パスワード(確認用)" %>
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "新規登録", class: 'btn btn-success' %>
   </div>
 <% end %>
 
 <%= render "public/shared/links" %>
+
+
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var phoneInput = document.querySelector('.phone-number-input');
+
+    phoneInput.addEventListener('input', function() {
+      // ハイフンを挿入するロジック
+      var value = this.value.replace(/[^\d]/g, ''); // 数字以外を削除
+      if (value.length > 3 && value.length <= 7) {
+        this.value = value.slice(0, 3) + '-' + value.slice(3);
+      } else if (value.length > 7) {
+        this.value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7);
+      }
+    });
+  });
+</script>
