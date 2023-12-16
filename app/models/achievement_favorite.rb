@@ -1,0 +1,2 @@
+class AchievementFavorite < ApplicationRecord
+end

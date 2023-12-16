@@ -1,0 +1,2 @@
+class GroupParticipationApplication < ApplicationRecord
+end

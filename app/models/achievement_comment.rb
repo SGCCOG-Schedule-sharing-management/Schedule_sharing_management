@@ -1,0 +1,2 @@
+class AchievementComment < ApplicationRecord
+end
