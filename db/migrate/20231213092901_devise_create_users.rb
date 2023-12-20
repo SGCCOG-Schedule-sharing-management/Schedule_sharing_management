@@ -4,7 +4,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       ## Database authenticatable
-      t.string :telephone_number,              null: false, default: "" #電話番号
+      t.string :email,              null: false, default: "" #メールアドレス
       t.string :encrypted_password, null: false, default: "" #パスワード
 
       ## Recoverable
@@ -31,21 +31,21 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
-      t.string :last_name, null: false #姓
-      t.string :first_name, null: false #名
-      t.string :last_name_kana, null: false #姓カナ
-      t.string :first_name_kana, null: false #名カナ
+      t.string :first_name, null: false #姓
+      t.string :last_name, null: false #名
+      t.string :first_name_kana, null: false #姓カナ
+      t.string :last_name_kana, null: false #名カナ
       t.date :birth_date, null: false #生年月日
       t.string :nickname, null: false #ニックネーム
       t.boolean :is_active, null: false, default: true #会員ステータス
-      
-      
-      
+
+
+
 
       t.timestamps null: false
     end
 
-    add_index :users, :telephone_number,                unique: true
+    add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
