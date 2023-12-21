@@ -1,0 +1,14 @@
+// app/assets/stylesheets/simple_calendar.scss
+
+.simple-calendar {
+  td {
+    border-right: 1px solid #ccc; // 縦線のスタイルを指定
+    padding-right: 10px; // 縦線と日付の間隔を調整（適宜調整してください）
+  }
+
+  &:last-child {
+    td {
+      border-right: none; // 最後の列には縦線を表示しない
+    }
+  }
+}

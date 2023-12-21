@@ -12,10 +12,11 @@ devise_scope :user do
   
 scope module: :public do
   root "homes#index"
-  get 'users/mypage' => 'users#show', as: 'mypage'
-  get 'users/information/edit' => 'users#edit', as: 'edit_information'
-  patch 'users/information' => 'users#update', as: 'update_information'
-  put 'users/information' => 'users#update'
+  get '/mypage' => 'users#show', as: 'mypage'
+  get '/information/edit' => 'users#edit', as: 'edit_information'
+  patch '/information' => 'users#update', as: 'update_information'
+  put '/information' => 'users#update'
+  resources :schedules, only: [:index, :show]
 end 
 
 # 管理者用
@@ -25,7 +26,7 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
 }
 namespace :admin do
   get 'top' => 'homes#top', as: 'top'
-  
+  resources :groups,
   
 end 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
