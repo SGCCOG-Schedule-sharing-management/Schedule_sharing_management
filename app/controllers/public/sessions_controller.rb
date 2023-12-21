@@ -25,7 +25,39 @@ class Public::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
   
+  def create
+    user = User.find_by(nickname: user_params[:nickname])
+
+    if user && user.valid_password?(user_params[:password])
+      sign_in(user)
+      redirect_to root_path, notice: 'ログインに成功しました。'
+    else
+      flash.now[:alert] = 'ログインに失敗しました。'
+      render :new
+    end
+  end
+  
+  
+  
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   def after_sign_out_path_for(resource)
     root_path
   end
+  
+  
+  
+  
+  
+    private
+
+  def user_params
+    params.require(:user).permit(:nickname, :password, :remember_me)
+  end
+
 end
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ScheduleSharingManagement</title>
+    <title>Legato Schedule</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,6 +12,54 @@
   </head>
 
   <body>
-    <%= yield %>
-  </body>
+    <% if admin_signed_in? %>
+    <header class="container-fluid" style="background-color: #007BFF; color: white;">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <%= link_to 'Legato Schedule', admin_top_path, class: 'navbar-brand' %>
+    <% elsif user_signed_in? %><!-- user のヘッダーの内容 -->    
+    <header class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to 'Legato Schedule', root_path, class: 'navbar-brand' %>
+    <% else %><!-- ゲストユーザーのヘッダーの内容 -->
+    <header class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to 'Legato Schedule', root_path, class: 'navbar-brand' %>
+    <% end %>
+    
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <% if admin_signed_in? %>
+              <li class="nav-item"><%= link_to 'ユーザー一覧', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to '本番一覧', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to '予定管理', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
+            <% elsif user_signed_in? %>
+              <li class="nav-item"><%= link_to "ようこそ、#{current_user.nickname}さん!", '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'マイページ', mypage_path, class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to '予定一覧', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to '本番', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+            <% else %>
+              <li class="nav-item"><%= link_to '本番一覧', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to '新規登録', new_user_registration_path, class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %></li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+  
+    <footer>
+      <!-- フッターの内容 -->
+    </footer>
+  </body>  
+          
 </html>

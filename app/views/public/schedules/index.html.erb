@@ -1,0 +1,9 @@
+<h6>スケジュール一覧</h6>
+
+<%= stylesheet_link_tag 'simple_calendar', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<%= month_calendar do |date| %>
+  <div class="simple-calendar">
+    <%= date.day %>
+  </div>
+<% end %>

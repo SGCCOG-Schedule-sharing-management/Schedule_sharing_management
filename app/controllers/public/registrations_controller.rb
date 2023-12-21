@@ -3,7 +3,19 @@
 class Public::RegistrationsController < Devise::RegistrationsController
    before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-
+   before_action :ensure_normal_user, only: %i[update destroy]
+  
+  def ensure_normal_user
+    if resource.nickname == 'ゲスト'
+      redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
+    end
+  end
+  
+  
+  
+  
+  
+  
   # GET /resource/sign_up
   # def new
   #   super
@@ -47,7 +59,13 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys:[:nickname])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :nickname, :birth_date])
+  end
+  
+  def ensure_normal_user
+    if resource.nickname == 'ゲスト'
+      redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
+    end
   end
 
   # If you have extra params to permit, append them to the sanitizer.
