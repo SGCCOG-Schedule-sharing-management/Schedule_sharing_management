@@ -1,0 +1,7 @@
+<h6>グループ詳細画面</h6>
+
+<%= @group.title %>
+<%= @group.content %>
+<!--%= @group.actual_date_and_time %-->
+<%= @group.actual_date.present? ? @group.actual_date.strftime('%Y-%m-%d') : '未定' %>
+<%= @group.actual_time.present? ? @group.actual_time.strftime('%H:%M') : '未定' %>
