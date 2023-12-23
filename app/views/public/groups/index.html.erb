@@ -1,0 +1,31 @@
+<% if flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+<h6>グループ一覧</h6>
+<% groups_with_dates = @groups.reject { |group| group.actual_date.nil? } %>
+<% groups_without_dates = @groups.select { |group| group.actual_date.nil? } %>
+
+<% groups_with_dates.sort_by(&:actual_date).each do |group| %>
+  <% group_status = GroupParticipationApplication.find_by(group_id: group.id) %>
+  <%= "ステータス：#{group_status.present? ? group_status.application_status_i18n : '未申請'}" %>／
+  日：<%= group.actual_date.present? ? group.actual_date.strftime('%Y年%m月%d日') : '未定' %>／
+  タイトル：<%= group.title %>／
+  内容：<%= group.content %>／
+  場所：<%= group.production_location.present? ? group.production_location : '未定' %>
+  <%= link_to '詳細', group_path(group.id), class: 'btn btn-primary' %></br>
+  
+<% end %>
+
+<% groups_without_dates.each do |group| %>
+  <% group_status = GroupParticipationApplication.find_by(group_id: group.id) %>
+  <%= "ステータス：#{group_status.present? ? group_status.application_status_i18n : '未申請'}" %>／
+  日：未定／
+  タイトル：<%= group.title %>／
+  内容：<%= group.content %>／
+  場所：<%= group.production_location.present? ? group.production_location : '未定' %>
+  <%= link_to '詳細', group_path(group.id), class: 'btn btn-primary' %></br>
+  
+<% end %>

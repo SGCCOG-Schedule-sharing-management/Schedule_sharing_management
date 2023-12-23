@@ -1,7 +1,10 @@
-<h6>グループ詳細画面</h6>
+<h6>Adminグループ詳細画面</h6>
+タイトル:
+<%= @group.title %></br>
+内容:
+<%= @group.content %></br>
+本番日:
+<%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></br>
 
-<%= @group.title %>
-<%= @group.content %>
-<!--%= @group.actual_date_and_time %-->
-<%= @group.actual_date.present? ? @group.actual_date.strftime('%Y-%m-%d') : '未定' %>
-<%= @group.actual_time.present? ? @group.actual_time.strftime('%H:%M') : '未定' %>
+本番場所:
+<%= @group.production_location.present? ? @group.production_location : '未定' %>

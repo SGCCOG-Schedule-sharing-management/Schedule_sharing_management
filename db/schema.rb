@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2023_12_15_115159) do
   create_table "group_participation_applications", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id", null: false
-    t.string "title", null: false
+    t.string "title"
     t.text "comment"
     t.integer "application_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false

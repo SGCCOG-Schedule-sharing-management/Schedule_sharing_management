@@ -1,0 +1,18 @@
+<h6>グループ詳細画面</h6>
+タイトル:
+<%= @group.title %></br>
+内容:
+<%= @group.content %></br>
+本番日:
+<%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></br>
+
+本番場所:
+<%= @group.production_location.present? ? @group.production_location : '未定' %></br>
+
+参加ステータス：<%= @group_status.present? ? @group_status.application_status : '未申請' %>
+<%= link_to '申請状況確認', group_group_participation_application_path(@group.id, @group_status&.id) if @group_status&.id.present? %>
+
+
+
+
+<%= link_to 'このグループに参加する', new_group_participation_application_path(group_id: @group.id), class: 'btn btn-primary' %>

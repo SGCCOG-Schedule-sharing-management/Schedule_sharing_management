@@ -1,0 +1,7 @@
+ja:
+  enums:
+    group_participation_application:
+      application_status:
+        untreated: "未処理"
+        approved: "承認済み"
+        rejected: "却下済み"

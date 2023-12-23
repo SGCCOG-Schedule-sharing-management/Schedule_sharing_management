@@ -5,9 +5,8 @@
   <%= f.text_field :title %>
   <p>内容</p>
   <%= f.text_area :content, maxlength: 200, :placeholder =>"依頼内容、どんなグループか等を入力" %>
-  <p>本番日時</p>
+  <p>本番日</p>
   <%= f.date_select :actual_date, { include_blank: true }, { class: 'form-control' } %>
-  <%= f.time_select :actual_time, { include_blank: true }, { class: 'form-control' } %>
   <p>本番場所</p>
   <%= f.text_field :production_location %>
 

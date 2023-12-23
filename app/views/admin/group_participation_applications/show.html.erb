@@ -1,0 +1,35 @@
+<% if flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+<h6>Adminグループ申請詳細(ステータス変更)</h6>
+
+
+
+  申請日時：<%= @application.created_at.strftime('%Y-%m-%d  %p%I:%M') %></br>
+  ユーザー：<%= @application.user.nickname %></br>
+  本番予定日：<%= @application.group.actual_date.present? ? applying.group.actual_date.strftime('%Y-%m-%d') : '未定' %></br>
+  グループタイトル：<%= @application.title %></br>
+  コメント：<%= @application.comment %></br>
+  申請ステータス：
+    <%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
+      現在のステータス：<%= now_status = @application.application_status_i18n %>→
+      <% if now_status == "未処理" %>
+        <%= f.radio_button :application_status, 1 %> 承認
+        <%= f.radio_button :application_status, 2 %> 却下
+      <% elsif now_status == "承認済み" %>
+        <%= f.radio_button :application_status, 2 %> 却下
+      <% else %>
+        <%= f.radio_button :application_status, 1 %> 承認
+      <% end %>
+       
+      
+     
+      <%= f.submit "変更", class: "btn btn-success" %>
+    <% end %>
+
+
+  -----
+

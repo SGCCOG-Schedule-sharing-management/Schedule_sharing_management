@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     patch '/information' => 'users#update', as: 'update_information'
     put '/information' => 'users#update'
     resources :schedules, only: [:index, :show]
+    resources :groups, only:[:index, :show]
+    resources :group_participation_applications, only:[:new, :create, :show]
+
   end 
 
   # 管理者用
@@ -27,6 +30,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'top' => 'homes#top', as: 'top'
     resources :groups
+    resources :group_participation_applications, only:[:index, :show, :update]
+    
+    
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

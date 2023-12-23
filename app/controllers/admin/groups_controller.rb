@@ -36,7 +36,7 @@ class Admin::GroupsController < ApplicationController
  private
   # ストロングパラメータ
   def group_params
-    params.require(:group).permit(:title, :content, :actual_date_and_time, :production_location)
+    params.require(:group).permit(:title, :content, :actual_date, :production_location)
   end   
   
 end
