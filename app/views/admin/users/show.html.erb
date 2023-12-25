@@ -1,0 +1,11 @@
+<h6>Admin ユーザー詳細画面</h6>
+
+
+ユーザーID：<%= @user.id %></br>
+氏名：<%= @user.first_name %><%= @user.last_name %></br>
+シメイ：<%= @user.first_name_kana %><%= @user.last_name_kana %></br>
+ニックネーム:<%= @user.nickname %></br>
+生年月日:<%= @user.birth_date %></br>
+メールアドレス:<%= @user.email %></br>
+会員ステータス:<%= @user.is_active_i18n %></br>
+登録日:<%= @user.created_at.strftime('%Y年%m月%d日 %H:%M') %></br>

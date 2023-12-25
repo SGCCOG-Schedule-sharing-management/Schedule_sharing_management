@@ -2,6 +2,7 @@
 
 class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :set_authentication_keys
 
   # GET /resource/sign_in
   # def new
@@ -26,17 +27,12 @@ class Public::SessionsController < Devise::SessionsController
   # end
   
   def create
-    user = User.find_by(nickname: user_params[:nickname])
-
-    if user && user.valid_password?(user_params[:password])
-      sign_in(user)
-      redirect_to root_path, notice: 'ログインに成功しました。'
-    else
-      flash.now[:alert] = 'ログインに失敗しました。'
-      render :new
-    end
+    self.resource = warden.authenticate!(auth_options)
+    set_flash_message!(:notice, :signed_in)
+    sign_in(resource_name, resource)
+    yield resource if block_given?
+    respond_with resource, location: after_sign_in_path_for(resource)
   end
-  
   
   
   def guest_sign_in
@@ -49,15 +45,18 @@ class Public::SessionsController < Devise::SessionsController
     root_path
   end
   
-  
-  
-  
-  
-    private
+private
 
-  def user_params
-    params.require(:user).permit(:nickname, :password, :remember_me)
+
+  def set_authentication_keys
+    request.env["devise.mapping"] = Devise.mappings[:user]
+    Devise.setup do |config|
+      config.authentication_keys = [:nickname]
+    end
   end
 
+def user_params
+  params.require(:user).permit(:nickname, :password)
 end
 
+end

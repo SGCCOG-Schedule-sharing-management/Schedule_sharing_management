@@ -34,14 +34,14 @@
           <ul class="navbar-nav">
             <% if admin_signed_in? %>
               <li class="nav-item"><%= link_to 'ユーザー一覧', '#', class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to '本番一覧', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to '申請一覧', admin_group_participation_applications_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to '予定管理', '#', class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
             <% elsif user_signed_in? %>
               <li class="nav-item"><%= link_to "ようこそ、#{current_user.nickname}さん!", '#', class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'マイページ', mypage_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to '予定一覧', '#', class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to '本番', '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'グループ一覧', groups_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
             <% else %>
               <li class="nav-item"><%= link_to '本番一覧', '#', class: 'nav-link' %></li>

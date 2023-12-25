@@ -1,1 +1,17 @@
 <h6>マイページ</h6>
+ 
+    <p>プロフィール画像</p>
+<% if @user.image.attached? %>
+  <%= image_tag @user.image, size: "200x200" %>
+<% else %>
+  <%= image_tag 'no_image', size: "200x200" %>
+<% end %></br>
+
+  
+氏名：<%= @user.first_name %>　<%= @user.last_name %></br>
+フリガナ：<%= @user.first_name_kana %>　<%= @user.last_name_kana %></br>
+生年月日: <%= @user.birth_date.strftime('%Y年%m月%d日') %></br>
+ニックネーム：<%= @user.nickname %></br>
+
+メールアドレス:<%= @user.email %></br>
+自己紹介:<%= @user.introduction.present? ? @user.introduction : '未登録' %>

@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get 'top' => 'homes#top', as: 'top'
     resources :groups
     resources :group_participation_applications, only:[:index, :show, :update]
-    
+    resources :users, only:[:index, :show, :update]
     
   end
 
