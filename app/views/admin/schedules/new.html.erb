@@ -1,0 +1,38 @@
+<% if flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+<h6>Admin 新規スケジュール登録</h6>
+
+<%= form_with model: @newschedule, url: admin_schedules_path, method: :post do |f| %>
+  グループ名：
+  <%= f.select :group_id, Group.all.map { |group| [group.title, group.id] }, prompt: "グループを選択してください", id: 'schedule_group_id' %></br>
+
+  <% if f.object.group_id.blank? %>
+    <!-- グループが選択されていない場合の処理 -->
+  <% else %>
+    <!-- グループが選択されている場合の処理 -->
+    <%= Group.find(f.object.group_id).content %>
+    <%= Group.find(f.object.group_id).actual_date %>
+    <%= Group.find(f.object.group_id).production_location %>
+  <% end %>
+  
+  予定日：
+  <%= f.date_select :start_time, prompt: { year: '年', month: '月', day: '日' } %></br>
+
+  場所：
+  <%= f.text_field :location, id: 'schedule_location' %></br>
+  
+  分類：
+  <% Schedule.classifications.each do |key, value| %>
+    <%= f.radio_button :classification, value %>
+    <%= f.label :classification, I18n.t("enums.schedule.classification.#{key}") %>
+  <% end %><br>
+
+  内容：
+  <%= f.text_area :content, placeholder: "練習予定の内容や持ち物、練習参加の上で連絡事項などを入力してください.", id: 'schedule_content' %></br>
+
+  <%= f.submit '登録', class: 'btn btn-primary' %>
+<% end %>

@@ -1,0 +1,9 @@
+<h6>Admin スケジュール詳細</h6>
+
+グループ名：<%= link_to @schedule.group.title, admin_group_path(@schedule.group.id) %></br>
+分類：<%= @schedule.classification_i18n %></br>
+予定日：<%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></br>
+場所：<%= @schedule.location.present? ? @schedule.location : '未登録' %></br>
+場所：<%= @schedule.location.present? ? @schedule.location : '未登録' %></br>
+内容：<%= @schedule.content.present? ? @schedule.content : '未登録' %></br>
+参加予定者：

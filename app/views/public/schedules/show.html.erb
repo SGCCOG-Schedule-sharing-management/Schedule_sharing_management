@@ -1,1 +1,27 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <h6>スケジュール詳細</h6>
+
+グループ名：<%= link_to @schedule.group.title, group_path(@schedule.group.id) %></br>
+分類：<%= @schedule.classification_i18n %></br>
+予定日：<%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></br>
+場所：<%= @schedule.location.present? ? @schedule.location : '未登録' %></br>
+内容：<%= @schedule.content.present? ? @schedule.content : '未登録' %></br>
+
+<%= form_with model: @schedule_participant, url: group_participation_applications_path, method: :post do |f| %>
+
+  出欠ステータス:
+  <% ScheduleParticipant.attendance_statuses.keys.each do |status| %>
+    <%= f.radio_button :attendance_status, status %>
+    <%= f.label :attendance_status, I18n.t("enums.schedule_participant.attendance_statuses.#{status}") %>
+  <% end %>
+
+<% end %>
+
+
+
+

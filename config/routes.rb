@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :schedules, only: [:index, :show]
     resources :groups, only:[:index, :show]
     resources :group_participation_applications, only:[:new, :create, :show]
+    resources :schedule_participants, only:[:create, :update]
 
   end 
 
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
     resources :groups
     resources :group_participation_applications, only:[:index, :show, :update]
     resources :users, only:[:index, :show, :update]
-    
+    resources :schedules
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

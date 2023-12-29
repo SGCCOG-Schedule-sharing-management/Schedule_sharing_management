@@ -1,0 +1,24 @@
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <%= @user.errors.count %> error prohibited this obj from being saved:
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= flash[:error] %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<h6>マイページ編集</h6>
+
+<%= form_with model: @user, url: update_information_path, method: :patch do |f| %>
+  <p>Image</p>
+  <%= f.file_field :profile_image, accept: "image/*" %></br>
+  氏名：<%= f.text_field :first_name %><%= f.text_field :last_name %></br>
+  フリガナ：<%= f.text_field :first_name_kana %><%= f.text_field :last_name_kana %></br>
+  ニックネーム：<%= f.text_field :nickname %></br>
+  メールアドレス：<%= f.text_field :email %></br>
+  自己紹介：<%= f.text_area :introduction %></br>
+  <%= f.submit '更新', class: "btn btn-success" %>
+<% end %>

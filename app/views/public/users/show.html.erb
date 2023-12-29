@@ -1,8 +1,14 @@
+<% if flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
 <h6>マイページ</h6>
  
-    <p>プロフィール画像</p>
-<% if @user.image.attached? %>
-  <%= image_tag @user.image, size: "200x200" %>
+<p>プロフィール画像</p>
+<% if @user.profile_image.attached? %>
+  <%= image_tag @user.profile_image, size: "200x200" %>
 <% else %>
   <%= image_tag 'no_image', size: "200x200" %>
 <% end %></br>
@@ -14,4 +20,6 @@
 ニックネーム：<%= @user.nickname %></br>
 
 メールアドレス:<%= @user.email %></br>
-自己紹介:<%= @user.introduction.present? ? @user.introduction : '未登録' %>
+自己紹介:<%= @user.introduction.present? ? @user.introduction : '未登録' %></br>
+
+<%= link_to '編集', edit_information_path, class: 'btn btn-primary' %>

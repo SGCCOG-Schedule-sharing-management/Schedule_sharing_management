@@ -59,3 +59,4 @@ gem 'devise'
 gem 'simple_calendar'
 gem 'flatpickr'
 gem "enum_help"
+gem 'bootstrap-datepicker-rails'

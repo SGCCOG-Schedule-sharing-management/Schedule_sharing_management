@@ -1,11 +1,21 @@
 ja:
-  
   enums:
     group_participation_application:
       application_status:
         untreated: "未処理"
         approved: "承認済み"
         rejected: "却下済み"
+    schedule:
+      classification:
+        other: "その他"
+        announcement: "本番"
+        practice: "練習"
+    schedule_participant:
+      attendance_status:
+        pending: "未定"
+        joining: "参加"
+        abstention: "不参加"
+
   date:
     abbr_day_names:
     - 日

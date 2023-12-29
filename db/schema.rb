@@ -111,10 +111,10 @@ ActiveRecord::Schema.define(version: 2023_12_25_103533) do
 
   create_table "schedules", force: :cascade do |t|
     t.integer "group_id", null: false
-    t.date "date", null: false
-    t.time "time"
+    t.date "start_time", null: false
     t.string "location"
-    t.text "belongings"
+    t.integer "classification", null: false
+    t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

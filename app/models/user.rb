@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :group_participation_applications
-  has_one_attached :image
+  belongs_to :schedule_participant
+  has_one_attached :profile_image
 
 
   def self.find_for_database_authentication(warden_conditions)
