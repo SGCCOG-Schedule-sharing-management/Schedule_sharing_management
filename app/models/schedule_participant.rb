@@ -1,5 +1,5 @@
 class ScheduleParticipant < ApplicationRecord
-  has_many :users, dependent: :destroy
+  belongs_to :user
   belongs_to :schedule
   
   #enum→未定:0、参加:1、不参加:2

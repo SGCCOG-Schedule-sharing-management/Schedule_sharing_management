@@ -1,0 +1,38 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<h6>スケジュール出欠ステータス変更</h6>
+<% Rails.logger.info("Schedule in View: #{(@schedule_participant && @schedule_participant.schedule).inspect}") %>
+
+<%= form_with model: @schedule_participant, url: schedule_schedule_participant_path(@schedule_participant.schedule), method: :patch do |f| %>
+
+  グループ名：<%= link_to @schedule_participant.schedule.group.title, group_path(@schedule_participant.schedule.group_id) %></br>
+  分類：<%= @schedule_participant.schedule.classification_i18n %></br>
+  予定日：<%= @schedule_participant.schedule.start_time.present? ? @schedule_participant.schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></br>
+  場所：<%= @schedule_participant.schedule.location.present? ? @schedule_participant.schedule.location : '未登録' %></br>
+  内容：<%= @schedule_participant.schedule.content.present? ? @schedule_participant.schedule.content : '未登録' %></br>
+  -----</br>
+※以下より出欠ステータスの変更を送信してください※</br>
+
+  出欠ステータス:　
+  <% ScheduleParticipant.attendance_statuses.keys.each do |status| %>
+    <%= f.radio_button :attendance_status, status %>
+    <%= f.label :attendance_status, I18n.t("enums.schedule_participant.attendance_status.#{status}") %>　
+  <% end %>　
+  <%= f.submit '回答送信', class: 'btn btn-success' %>
+<% end %>
+
+
+
+

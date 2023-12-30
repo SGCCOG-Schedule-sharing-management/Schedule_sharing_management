@@ -17,7 +17,7 @@ def create
   @request.user_id = @user.id
   @request.group_id = @group.id
 
-  if @request.save
+  if @request.save!
     flash[:notice] = "申請しました"
     redirect_to groups_path
   else

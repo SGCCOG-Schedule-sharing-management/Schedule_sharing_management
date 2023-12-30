@@ -13,9 +13,7 @@
   </div>
 <% end %>
 
-<h6>スケジュール詳細</h6>
-<%= link_to '活動報告を書く', new_schedule_achievement_path(schedule_id: @schedule.id), class: 'btn btn-primary' %>
-
+<h6>スケジュール出欠ステータス詳細</h6>
 
 グループ名：<%= link_to @schedule.group.title, group_path(@schedule.group.id) %></br>
 分類：<%= @schedule.classification_i18n %></br>
@@ -34,10 +32,3 @@
   出欠ステータス：
   <%= link_to "回答する", new_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-primary' %>
 <% end %>
-
-
-
-出欠ステータス：
-  <%= link_to "回答する", new_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-primary' %>
-
-

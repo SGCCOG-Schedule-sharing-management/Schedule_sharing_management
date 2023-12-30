@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :group_participation_applications
-  belongs_to :schedule_participant
+  has_many :schedule_participant, dependent: :destroy
   has_one_attached :profile_image
 
 

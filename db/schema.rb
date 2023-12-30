@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(version: 2023_12_25_103533) do
   create_table "schedules", force: :cascade do |t|
     t.integer "group_id", null: false
     t.date "start_time", null: false
+    t.time "start"
+    t.time "end"
     t.string "location"
     t.integer "classification", null: false
     t.text "content"

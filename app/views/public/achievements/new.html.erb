@@ -1,0 +1,14 @@
+<h6>活動報告</h6>
+
+<%= form_with model: [@schedule, @achievement], url: new_schedule_achievement_path(@schedule) do |f| %>
+
+
+タイトル：<%= f.text_field :title %><br>
+参加メンバー:
+<% @schedule_participants.each do |schedule_participant| %>
+  <%= schedule_participant.user.nickname %><br>
+<% end %>
+
+活動内容:<%= f.text_area :content %> <br>
+コメント：<%= f.text_area :comment, placeholder: '次回の予定など' %><br>
+<% end %>

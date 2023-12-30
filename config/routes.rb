@@ -16,12 +16,16 @@ Rails.application.routes.draw do
     get '/information/edit' => 'users#edit', as: 'edit_information'
     patch '/information' => 'users#update', as: 'update_information'
     put '/information' => 'users#update'
-    resources :schedules, only: [:index, :show]
+    resources :schedules, only: [:index, :show] do
+      resources :schedule_participants, only:[:new, :create, :show, :edit, :update]
+      resources :achievements
+    end
     resources :groups, only:[:index, :show]
     resources :group_participation_applications, only:[:new, :create, :show]
-    resources :schedule_participants, only:[:create, :update]
+    
 
-  end 
+
+  end
 
   # 管理者用
   # URL /admin/sign_in ...

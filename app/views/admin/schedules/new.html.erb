@@ -21,6 +21,10 @@
   
   予定日：
   <%= f.date_select :start_time, prompt: { year: '年', month: '月', day: '日' } %></br>
+  
+  時間：
+<%= f.time_select :start, prompt: { hour: '時', minute: '分' }, minute_step: 5 %>〜<%= f.time_select :end, prompt: { hour: '時', minute: '分' }, minute_step: 5 %></br>
+
 
   場所：
   <%= f.text_field :location, id: 'schedule_location' %></br>
