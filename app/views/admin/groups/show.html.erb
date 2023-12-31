@@ -1,3 +1,17 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
 <h6>Adminグループ詳細画面</h6>
 タイトル:
 <%= @group.title %></br>
@@ -7,4 +21,6 @@
 <%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></br>
 
 本番場所:
-<%= @group.production_location.present? ? @group.production_location : '未定' %>
+<%= @group.production_location.present? ? @group.production_location : '未定' %></br>
+
+<%= link_to '内容を変更する', edit_admin_group_path(@group), class: 'btn btn-secondary' %>

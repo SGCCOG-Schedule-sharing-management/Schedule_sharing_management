@@ -1,14 +1,35 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+<!-- app/views/public/achievements/new.html.erb -->
 <h6>活動報告</h6>
 
-<%= form_with model: [@schedule, @achievement], url: new_schedule_achievement_path(@schedule) do |f| %>
+<%= form_with model: [@schedule, @achievement], url: schedule_achievements_path, method: :post, multipart: true do |f| %>
 
+  グループ名：<%= link_to @schedule.group.title, group_path(@schedule.group.id) %><br>
+  日時：<%= @schedule.start_time.strftime("%Y年%m月%d日(%a)") %>　<%= @schedule.start.strftime("%H:%M") %>〜<%= @schedule.end.strftime("%H:%M") %><br>
 
-タイトル：<%= f.text_field :title %><br>
-参加メンバー:
-<% @schedule_participants.each do |schedule_participant| %>
-  <%= schedule_participant.user.nickname %><br>
-<% end %>
+  タイトル：<%= f.text_field :title, placeholder: "#{@schedule.start_time.strftime("%y-%m-%d")}_活動報告" %><br>
 
-活動内容:<%= f.text_area :content %> <br>
-コメント：<%= f.text_area :comment, placeholder: '次回の予定など' %><br>
+  参加メンバー:
+  <% @schedule_participants.each do |schedule_participant| %>
+    <%= content_tag(:span, schedule_participant.user.nickname, class: 'btn btn-light') %>
+  <% end %><br>
+
+  活動内容:<%= f.text_area :content %> <br>
+  Memo：<%= f.text_area :comment, placeholder: '次回の予定など' %><br>
+
+  <%= f.file_field :post_image %><br>
+
+  <%= f.submit '投稿', class: 'btn btn-success' %>
 <% end %>

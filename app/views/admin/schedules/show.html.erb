@@ -6,4 +6,6 @@
 場所：<%= @schedule.location.present? ? @schedule.location : '未登録' %></br>
 場所：<%= @schedule.location.present? ? @schedule.location : '未登録' %></br>
 内容：<%= @schedule.content.present? ? @schedule.content : '未登録' %></br>
-参加予定者：
+参加予定者：<%= @schedule_participant.user.nickname %>
+
+<%= link_to '編集', edit_admin_schedule_path(@schedule), class: 'btn btn-secondary' %>

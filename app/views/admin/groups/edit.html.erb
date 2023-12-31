@@ -1,0 +1,30 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<h6>Admin グループ編集画面</h6>
+
+<%= form_with model: @group, local: true, url: admin_group_path(@group), method: :patch do |f| %>
+
+タイトル:
+<%= f.text_field :title %></br>
+内容:
+<%= f.text_area :content, maxlength: 200 %></br>
+本番日:
+<%= f.date_select :actual_date, { include_blank: true }, { class: 'form-control' } %></br>
+
+本番場所:
+<%= f.text_field :production_location %></br>
+
+ <%= f.submit '変更内容を保存する', class: "btn btn-success btn-lg" %>
+<% end %>

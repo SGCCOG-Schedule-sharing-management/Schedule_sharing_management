@@ -1,4 +1,19 @@
 ja:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+  activerecord:
+    attributes:
+      user:
+        is_active_i18n: "会員ステータス"
+  helpers:
+    label:
+      user:
+        is_active_i18n: "会員ステータス"
   enums:
     group_participation_application:
       application_status:

@@ -19,6 +19,7 @@ class Admin::SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find(params[:id])
+    @schedule_participant = ScheduleParticipant.find_by(id: params[:id])
     if @schedule.nil?
       flash[:notice] = "この日の予定はありません"
     end
@@ -38,9 +39,9 @@ class Admin::SchedulesController < ApplicationController
   end
   
   private
-  # 例
+
 def schedule_params
-  params.require(:schedule).permit(:group_id, :start_time, :other_attribute, :classification).tap do |whitelisted|
+  params.require(:schedule).permit(:group_id, :start_time, :start, :end, :location, :content, :other_attribute, :classification).tap do |whitelisted|
     whitelisted[:classification] = whitelisted[:classification].to_i
 end
 end

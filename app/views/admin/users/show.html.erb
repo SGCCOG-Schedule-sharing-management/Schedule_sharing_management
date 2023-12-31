@@ -1,11 +1,37 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
 <h6>Admin ユーザー詳細画面</h6>
 
-
+<%= form_with model: @user, local: true, url: admin_user_path(@user), method: :patch do |f| %>
 ユーザーID：<%= @user.id %></br>
 氏名：<%= @user.first_name %><%= @user.last_name %></br>
 シメイ：<%= @user.first_name_kana %><%= @user.last_name_kana %></br>
 ニックネーム:<%= @user.nickname %></br>
 生年月日:<%= @user.birth_date %></br>
 メールアドレス:<%= @user.email %></br>
-会員ステータス:<%= @user.is_active_i18n %></br>
 登録日:<%= @user.created_at.strftime('%Y年%m月%d日 %H:%M') %></br>
+<!--会員ステータス:<%#= @user.is_active_i18n %></br-->
+会員ステータス：<%= @user.is_active_was ? '有効' : '退会' %>
+  <% if @user.is_active == true %>
+    → <%= f.radio_button :is_active, false %><%= f.label :is_active, '退会にする' %></br>
+    <%= f.submit '会員ステータスを更新する', class: 'btn btn-danger' %>
+  <% else %>
+    → <%= f.radio_button :is_active, true %><%= f.label :is_active, '有効に戻す' %></br>
+    <%= f.submit '会員ステータスを更新する', class: 'btn btn-success' %>
+  <% end %></br>
+
+
+
+<% end %>
