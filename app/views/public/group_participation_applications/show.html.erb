@@ -1,0 +1,9 @@
+<h6>グループ参加申請詳細(ステータス確認)</h6>
+
+参加ステータス：<%= @group_status.application_status_i18n %></br>
+更新日時：<%= @group_status.updated_at.strftime('%Y-%m-%d %H:%M') %></br>
+
+
+グループ名：<%= @group_status.group.title %></br>
+コメント：<%= @group_status.comment %></br>
+本番日：<%= @group_status.group.actual_date.present? ? @group_status.group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %>

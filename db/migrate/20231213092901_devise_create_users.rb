@@ -37,6 +37,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :last_name_kana, null: false #名カナ
       t.date :birth_date, null: false #生年月日
       t.string :nickname, null: false #ニックネーム
+      t.text :introduction #自己紹介
       t.boolean :is_active, null: false, default: true #会員ステータス
 
 

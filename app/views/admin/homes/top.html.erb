@@ -1,4 +1,55 @@
-<!-- app/views/admin/homes/top.html.erb -->
+<h6>スケジュール一覧</h6>
 
-<h1>Welcome to the Admin Dashboard</h1>
-<p>This is the top page for administrators.</p>
+<%= link_to '新規スケジュール作成', new_admin_schedule_path, class: 'btn btn-primary' %>
+
+<%= stylesheet_link_tag 'simple_calendar', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<%= month_calendar events: @schedules do |date, schedules| %>
+  <%= date.day %>
+
+  <% schedules.each do |schedule| %>
+  <div>
+    <%= link_to admin_schedule_path(schedule.id) do %>
+      <%= "#{schedule.group.title} " %>
+      <% if schedule.classification == 'other' %>
+        🥚
+      <% elsif schedule.classification == 'practice' %>
+        🐣
+      <% elsif schedule.classification == 'announcement' %>
+        🐓
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<% end %>
+
+
+<% future_schedules = @schedules.select { |schedule| schedule.start_time >= Date.current } %>
+<% future_schedules.sort_by!(&:start_time) %>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="schedule">今後の予定一覧</div>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>日程</th>
+          <th>グループタイトル</th>
+          <th>分類</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% future_schedules.each do |schedule| %>
+          <tr>
+            <td><%= link_to schedule.start_time.strftime("%Y-%m-%d"), admin_schedule_path(schedule.id) %></td>
+            <td><%= schedule.group.title %></td>
+            <td><%= schedule.classification_i18n %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

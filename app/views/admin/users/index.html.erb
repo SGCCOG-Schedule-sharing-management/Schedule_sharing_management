@@ -1,0 +1,11 @@
+<h6>Admin ユーザー一覧画面</h6>
+
+<% @users.each do |user| %>
+
+ID：<%= user.id %>／
+ニックネーム：<%= user.nickname %>／
+氏名：<%= user.first_name %><%= user.last_name %>／
+ステータス：<%= user.is_active %>／
+<%= link_to '詳細', admin_user_path(user.id), class: 'btn btn-primary' %> </br>
+
+<% end %>
