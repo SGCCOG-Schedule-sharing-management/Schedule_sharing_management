@@ -13,10 +13,10 @@
 
   <body>
     <% if request.path.start_with?('/admin') %>
-    <header class="container-fluid" style="background-color: #FFCC33; color: white;">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <header class="container-fluid" style="background-color: #EA930A; color: white;">
+      <nav class="navbar navbar-expand-lg navbar-dark ">
         <%= link_to 'Legato Schedule', admin_top_path, class: 'navbar-brand' %>
-    <% elsif user_signed_in? %><!-- user のヘッダーの内容 -->    
+    <% elsif user_signed_in? %><!-- user のヘッダーの内容 -->
     <header class="container-fluid">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to 'Legato Schedule', root_path, class: 'navbar-brand' %>
@@ -25,7 +25,7 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to 'Legato Schedule', root_path, class: 'navbar-brand' %>
     <% end %>
-    
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -39,7 +39,7 @@
               <li class="nav-item"><%= link_to 'グループ一覧', admin_groups_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
             <% elsif user_signed_in? %>
-              <li class="nav-item"><%= link_to "ようこそ、#{current_user.nickname}さん!", '#', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to "ようこそ、#{current_user.nickname}さん!", mypage_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'マイページ', mypage_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to '予定一覧', schedules_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'グループ一覧', groups_path, class: 'nav-link' %></li>
@@ -57,10 +57,10 @@
     <main>
       <%= yield %>
     </main>
-  
+
     <footer>
       <!-- フッターの内容 -->
     </footer>
-  </body>  
-          
+  </body>
+
 </html>

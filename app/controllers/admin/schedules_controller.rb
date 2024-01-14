@@ -30,9 +30,19 @@ class Admin::SchedulesController < ApplicationController
   end
 
   def edit
+    @schedule = Schedule.find(params[:id])
   end
 
   def update
+    @schedule = Schedule.find(params[:id])
+    if @schedule.update(schedule_params)
+      flash[:success] = "スケジュールの内容を更新しました"
+      redirect_to admin_schedule_path(@schedule)
+    else
+      flash[:error] = "スケジュールの内容を更新できませんでした"
+      @schedule = Schedule.all
+      render :edit
+    end
   end
 
   def destroy
