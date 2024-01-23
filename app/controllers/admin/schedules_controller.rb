@@ -46,6 +46,15 @@ class Admin::SchedulesController < ApplicationController
   end
 
   def destroy
+    @schedule = Schedule.find(params[:id])
+    if @schedule.destroy
+      flash[:success] = "スケジュールを削除しました"
+      redirect_to admin_schedules_path
+    else
+      flash[:error] = "スケジュールを削除できませんでした"
+      @schedule = Schedule.all
+      render :show
+    end
   end
   
   private

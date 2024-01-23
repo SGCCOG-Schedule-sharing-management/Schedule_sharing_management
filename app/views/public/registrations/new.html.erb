@@ -1,23 +1,25 @@
-<% if flash[:notice].present? %>
-  <div class="alert alert-info">
-    <%= flash[:notice] %>
-  </div>
-<% elsif flash[:error].present? %>
-  <div class="alert alert-danger">
-    <%= flash[:error] %>
-  </div>
-<% elsif flash[:success].present? %>
-  <div class="alert alert-success">
-    <%= flash[:success] %>
-  </div>
-<% end %>
+<div class="container">
+  <% if flash[:notice].present? %>
+    <div class="alert alert-info">
+      <%= flash[:notice] %>
+    </div>
+  <% elsif flash[:error].present? %>
+    <div class="alert alert-danger">
+      <%= flash[:error] %>
+    </div>
+  <% elsif flash[:success].present? %>
+    <div class="alert alert-success">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
 
-<h2>新規ユーザー登録</h2>
+  <h2 class="text-center">新規ユーザー登録</h2>
 
-<%= form_with model: @user, url: user_registration_path do |f| %>
-  <%= render "public/shared/error_messages", resource: @user %>
+  <%= form_with model: @user, url: user_registration_path do |f| %>
+    <%= render "public/shared/error_messages", resource: @user %>
 
-  <table class="customer_info customer_form">
+    <div class="table-responsive">
+      <table class="table customer_info customer_form">
       <thead>
         <th></th>
         <th></th>
@@ -62,15 +64,16 @@
           <td colspan="2"><%= f.password_field :password_confirmation, autocomplete: "new-password" %></div></td>
         </tr>
       </tbody>
-    </table>
-    
+      </table>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "新規登録", class: 'btn btn-success' %>
-  </div>
-<% end %>
+    <div class="actions text-center">
+      <%= f.submit "新規登録", class: 'btn btn-success' %>
+    </div>
+  <% end %>
 
-<%= render "public/shared/links" %>
+  <%= render "public/shared/links" %>
+</div>
 
 
 

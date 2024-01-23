@@ -5,33 +5,50 @@
 <% end %>
 
 <h6>グループ一覧</h6>
-<% groups_with_dates = @groups.reject { |group| group.actual_date.nil? } %>
-<% groups_without_dates = @groups.select { |group| group.actual_date.nil? } %>
 
-<% current_user_participation_ids = current_user.group_participation_applications.pluck(:group_id) %>
+<div class="row">
+  <style>
+    .card-img-top {
+      width: 100%;
+      height: 250px; /* ここを調整して適切な高さに変更してください */
+      object-fit: cover; /* カットして表示 */
+      overflow: hidden; /* サイズがオーバーしている場合にカット */
+    }
+  </style>
 
-<% groups_with_dates.sort_by(&:actual_date).each do |group| %>
-  <% group_status = current_user_participation_ids.include?(group.id) ? 
-                    current_user.group_participation_applications.find_by(group_id: group.id).application_status_i18n : 
-                    '未申請' %>
-  
-  <%= "ステータス：#{group_status}" %>／
-  日：<%= group.actual_date.present? ? group.actual_date.strftime('%Y年%m月%d日') : '未定' %>／
-  タイトル：<%= group.title %>／
-  内容：<%= group.content %>／
-  場所：<%= group.production_location.present? ? group.production_location : '未定' %>
-  <%= link_to '詳細', group_path(group.id), class: 'btn btn-primary' %></br>
-<% end %>
+  <% current_user_participation_ids = current_user.group_participation_applications.pluck(:group_id) %>
+
+  <% groups_with_dates = @groups.reject { |group| group.actual_date.nil? } %>
+  <% groups_without_dates = @groups.select { |group| group.actual_date.nil? } %>
+
+  <% groups_with_dates.sort_by(&:actual_date).each do |group| %>
+    <div class="col-lg-3 col-md-2 col-sm-6 mb-3">
+      <div class="card">
+        <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to group.title, group_path(group.id) %></h5>
+          <p class="card-text"><i class="fa-regular fa-calendar-days"></i> <%= group.actual_date.present? ? group.actual_date.strftime('%Y年%m月%d日(%a)') : '未定' %></p>
+          <% group_status = current_user_participation_ids.include?(group.id) ? 
+                            current_user.group_participation_applications.find_by(group_id: group.id).application_status_i18n : 
+                            '未申請' %>
+          <p><%= "ステータス：#{group_status}" %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 
 <% groups_without_dates.each do |group| %>
-  <% group_status = current_user_participation_ids.include?(group.id) ? 
-                    current_user.group_participation_applications.find_by(group_id: group.id).application_status_i18n : 
-                    '未申請' %>
-  
-  <%= "ステータス：#{group_status}" %>／
-  日：未定／
-  タイトル：<%= group.title %>／
-  内容：<%= group.content %>／
-  場所：<%= group.production_location.present? ? group.production_location : '未定' %>
-  <%= link_to '詳細', group_path(group.id), class: 'btn btn-primary' %></br>
+  <div class="col-lg-2 col-md-2 col-sm-6 mb-3">
+    <div class="card">
+      <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
+      <div class="card-body">
+        <h5 class="card-title">開催日：未定</h5>
+        <p class="card-text"><%= link_to group.title, group_path(group.id) %></p>
+      </div>
+    </div>
+  </div>
 <% end %>
+
+

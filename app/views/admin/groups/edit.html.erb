@@ -15,6 +15,7 @@
 <h6>Admin グループ編集画面</h6>
 
 <%= form_with model: @group, local: true, url: admin_group_path(@group), method: :patch do |f| %>
+<%= f.file_field :group_image, accept: "image/*" %></br>
 
 タイトル:
 <%= f.text_field :title %></br>

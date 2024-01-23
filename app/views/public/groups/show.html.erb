@@ -1,25 +1,61 @@
-<h6>グループ詳細画面</h6>
-タイトル: <%= @group.title %></br>
-内容: <%= @group.content %></br>
-本番日: <%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></br>
-本番場所: <%= @group.production_location.present? ? @group.production_location : '未定' %></br>
+<div class="container mx-auto text-center">
+  <h6>グループ詳細画面</h6>
 
-<% current_user_participation_ids = current_user.group_participation_applications.pluck(:group_id) %>
 
-<% group_status = current_user_participation_ids.include?(@group.id) ?
-                    current_user.group_participation_applications.find_by(group_id: @group.id).application_status_i18n :
-                    '未申請' %>
-<% "ステータス：#{group_status}" %></br>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="text-left">
+              <% if @group.group_image.attached? %>
+                <%= image_tag @group.group_image, size: "200x200", class: "img-fluid" %>
+              <% else %>
+                <%= image_tag 'no_image_square', size: "200x200", class: "img-fluid" %>
+              <% end %>
+            </td>
+            <td></td>
+          </tr>
+        <tr>
+          <th class="table-secondary text-left">タイトル</th>
+          <td class="table-light"><%= @group.title %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary text-left">内容</th>
+          <td class="table-light"><%= @group.content %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary text-left">本番日</th>
+          <td class="table-light"><%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary text-left">本番場所</th>
+          <td class="table-light"><%= @group.production_location.present? ? @group.production_location : '未定' %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary text-left">ステータス</th> 
+          <td class="table-light"><% current_user_participation_ids = current_user.group_participation_applications.pluck(:group_id) %>
+            <% group_status = current_user_participation_ids.include?(@group.id) ?
+                                current_user.group_participation_applications.find_by(group_id: @group.id).application_status_i18n :
+                                '未申請' %>
+            <% "#{group_status}" %></br>
+            <% if group_status =='承認済み' %>
+                <%= '参加中' %>
+            <% else %>
+                <%= "#{group_status}" %></br>
+            <% end %>
+            
+            <%= link_to '申請状況確認', group_group_participation_application_path(@group.id, @group_status&.id) if @group_status&.id.present? %>
+            
+            <% if group_status =='承認済み' %>
+            <% else %>
+                <%= link_to new_group_participation_application_path(group_id: @group.id), class: 'btn btn-primary' do %>
+                  <i class="fa-solid fa-right-to-bracket"></i> このグループに参加する
+                <% end %>
+            <% end %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-<% if group_status =='承認済み' %>
-    ステータス：<%= '参加中' %>
-<% else %>
-    <%= "ステータス：#{group_status}" %>
-<% end %>
 
-<%= link_to '申請状況確認', group_group_participation_application_path(@group.id, @group_status&.id) if @group_status&.id.present? %>
 
-<% if group_status =='承認済み' %>
-<% else %>
-    <%= link_to 'このグループに参加する', new_group_participation_application_path(group_id: @group.id), class: 'btn btn-primary' %>
-<% end %>
+

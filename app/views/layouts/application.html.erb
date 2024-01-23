@@ -11,17 +11,20 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  
     <% if request.path.start_with?('/admin') %>
+    <body style="background-color: #F5F5F5;">
     <header class="container-fluid" style="background-color: #EA930A; color: white;">
       <nav class="navbar navbar-expand-lg navbar-dark ">
         <%= link_to 'Legato Schedule', admin_top_path, class: 'navbar-brand' %>
     <% elsif user_signed_in? %><!-- user のヘッダーの内容 -->
-    <header class="container-fluid">
+    <body style="background-color: #F0F8FF;">
+    <header class="container-fluid" style="background-color: #009999; color: white;">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to 'Legato Schedule', root_path, class: 'navbar-brand' %>
     <% else %><!-- ゲストユーザーのヘッダーの内容 -->
-    <header class="container-fluid">
+    <body style="background-color: #F0F8FF;">
+    <header class="container-fluid" style="background-color: #009999; color: white;">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to 'Legato Schedule', root_path, class: 'navbar-brand' %>
     <% end %>
@@ -33,17 +36,34 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
             <% if admin_signed_in? %>
-              <li class="nav-item"><%= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to '申請一覧', admin_group_participation_applications_path, class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to '予定管理', admin_schedules_path, class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to 'グループ一覧', admin_groups_path, class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to admin_users_path, class: 'nav-link' do %>
+                <i class="fa-solid fa-user"></i>ユーザー一覧
+                <% end %>
+              </li>
+              <li class="nav-item"><%= link_to admin_group_participation_applications_path, class: 'nav-link' do %>
+                <i class="fa-regular fa-thumbs-up"></i>申請一覧
+                <% end %>
+              </li>
+              <li class="nav-item"><%= link_to admin_schedules_path, class: 'nav-link' do %>
+                <i class="fa-regular fa-calendar-days"></i>予定管理
+                <% end %>
+              </li>
+              <li class="nav-item"><%= link_to admin_groups_path, class: 'nav-link' do %>
+                <i class="fa-solid fa-people-group"></i>グループ一覧
+                <% end %>
+              </li>
+              <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link' do %>
+                <i class="fa-solid fa-right-from-bracket"></i>ログアウト
+                <% end %>
+              </li>
+              
             <% elsif user_signed_in? %>
               <li class="nav-item"><%= link_to "ようこそ、#{current_user.nickname}さん!", mypage_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'マイページ', mypage_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to '予定一覧', schedules_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'グループ一覧', groups_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+              
             <% else %>
               <li class="nav-item"><%= link_to '本番一覧', '#', class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to '新規登録', new_user_registration_path, class: 'nav-link' %></li>

@@ -1,24 +1,76 @@
-<% if @user.errors.any? %>
-  <div class="alert alert-danger">
-    <%= @user.errors.count %> error prohibited this obj from being saved:
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= flash[:error] %></li>
-      <% end %>
-    </ul>
+<div class="container mx-auto text-center">
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <%= @user.errors.count %> error prohibited this obj from being saved:
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= flash[:error] %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h6>マイページ編集</h6>
+
+  <%= form_with model: @user, url: update_information_path, method: :patch do |f| %>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="table-secondary text-left">プロフィール画像</th>
+        <td class="table-light">
+          <div class="form-group">
+            <%= f.file_field :profile_image, accept: "image/*", class: "form-control" %>
+          </div>
+        </td>
+      </tr>
+    <tr>
+      <th class="table-secondary text-left">氏名</th>
+      <td class="table-light">
+        <div class="form-group">
+          <%= f.text_field :first_name, class: "form-control" %>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">フリガナ</th>
+      <td class="table-light">
+        <div class="form-group">
+          <%= f.text_field :first_name_kana, class: "form-control" %>
+          <%= f.text_field :last_name_kana, class: "form-control" %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">ニックネーム</th>
+      <td class="table-light">
+        <div class="form-group">
+          <%= f.text_field :nickname, class: "form-control" %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">メールアドレス</th>
+      <td class="table-light">
+        <div class="form-group">
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">自己紹介</th>
+      <td class="table-light">
+        <div class="form-group">
+          <%= f.text_area :introduction, class: "form-control" %>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="text-right"> <!-- 右寄せのための div を追加 -->
+    <%= f.submit '更新', class: "btn btn-success" %>
   </div>
-<% end %>
-
-
-<h6>マイページ編集</h6>
-
-<%= form_with model: @user, url: update_information_path, method: :patch do |f| %>
-  <p>Image</p>
-  <%= f.file_field :profile_image, accept: "image/*" %></br>
-  氏名：<%= f.text_field :first_name %><%= f.text_field :last_name %></br>
-  フリガナ：<%= f.text_field :first_name_kana %><%= f.text_field :last_name_kana %></br>
-  ニックネーム：<%= f.text_field :nickname %></br>
-  メールアドレス：<%= f.text_field :email %></br>
-  自己紹介：<%= f.text_area :introduction %></br>
-  <%= f.submit '更新', class: "btn btn-success" %>
-<% end %>
+  <% end %>
+</div>

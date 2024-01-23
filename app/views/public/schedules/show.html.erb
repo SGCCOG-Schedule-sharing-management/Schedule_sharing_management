@@ -23,6 +23,7 @@
 時間：<%= @schedule.start.present? ? @schedule.start.strftime("%H:%M") : '未登録' %>〜<%= @schedule.end.present? ? @schedule.end.strftime("%H:%M") : '未登録' %></br>
 場所：<%= @schedule.location.present? ? @schedule.location : '未登録' %></br>
 内容：<%= @schedule.content.present? ? @schedule.content : '未登録' %></br>
+参加予定者：<%= @planned_participants.user.nickname.present? ? @planned_participants.user.nickname : '未登録' %>
 
 <% if @schedule_participant.present? %>
   <!-- @schedule_participant オブジェクトが存在する場合の表示 -->

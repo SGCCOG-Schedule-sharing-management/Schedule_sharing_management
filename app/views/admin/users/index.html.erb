@@ -1,11 +1,29 @@
 <h6>Admin ユーザー一覧画面</h6>
 
-<% @users.each do |user| %>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>ID</th>
+      <th>ニックネーム</th>
+      <th>氏名</th>
+      <th>ステータス</th>
+      <th></th> <!-- 詳細ボタン用の列 -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="table-light"><%= user.id %></td>
+        <td class="table-light"><% if user.profile_image.attached? %>
+              <%= image_tag user.profile_image, size: "50x50" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "50x50" %>
+            <% end %><%= user.nickname %></td>
+        <td class="table-light"><%= user.first_name %> <%= user.last_name %></td>
+        <td class="table-light"><%= user.is_active %></td>
+        <td class="table-light"><%= link_to '詳細', admin_user_path(user.id), class: 'btn btn-primary' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-ID：<%= user.id %>／
-ニックネーム：<%= user.nickname %>／
-氏名：<%= user.first_name %><%= user.last_name %>／
-ステータス：<%= user.is_active %>／
-<%= link_to '詳細', admin_user_path(user.id), class: 'btn btn-primary' %> </br>
-
-<% end %>

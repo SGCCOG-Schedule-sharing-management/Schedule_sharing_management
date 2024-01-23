@@ -1,6 +1,7 @@
 <h6>グループ新規登録画面</h6>
 
 <%= form_with model: @newgroup, url: admin_groups_path do |f| %>
+
   <p>タイトル</p>
   <%= f.text_field :title %>
   <p>内容</p>

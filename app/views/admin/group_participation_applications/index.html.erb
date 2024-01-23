@@ -6,16 +6,27 @@
 
 <h6>Adminグループ申請一覧</h6>
 
-<% @requests_all.each do |applying| %>
-
-申請日時：<%= applying.created_at.strftime('%Y-%m-%d  %p%I:%M') %></br>
-ユーザー：<%= applying.user.nickname %></br>
-本番予定日：<%= applying.group.actual_date.present? ? applying.group.actual_date.strftime('%Y-%m-%d') : '未定' %></br>
-グループタイトル：<%= applying.group.title %></br>
-コメント：<%= applying.comment %></br>
-申請ステータス：<%= applying.application_status_i18n %></br>
-
-<%= link_to '詳細', admin_group_participation_application_path(applying.id), class: 'btn btn-primary' %></br>
------
-
-<% end %>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>申請日時</th>
+      <th>ユーザー</th>
+      <th>本番予定日</th>
+      <th>グループタイトル</th>
+      <th>申請ステータス</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @requests_all.each do |applying| %>
+      <tr>
+        <td class="table-light"><%= applying.created_at.strftime('%Y-%m-%d  %p%I:%M') %></td>
+        <td class="table-light"><%= applying.user.nickname %></td>
+        <td class="table-light"><%= applying.group.actual_date.present? ? applying.group.actual_date.strftime('%Y-%m-%d') : '未定' %></td>
+        <td class="table-light"><%= applying.group.title %></td>
+        <td class="table-light"><%= applying.application_status_i18n %></td>
+        <td class="table-light"><%= link_to '詳細', admin_group_participation_application_path(applying.id), class: 'btn btn-primary' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

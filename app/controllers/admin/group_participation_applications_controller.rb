@@ -1,6 +1,7 @@
 class Admin::GroupParticipationApplicationsController < ApplicationController
   def index
-    @requests_all = GroupParticipationApplication.all
+    #@requests_all = GroupParticipationApplication.all
+    @requests_all = GroupParticipationApplication.all.sort_by(&:created_at).reverse
   end 
   
   def show
