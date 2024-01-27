@@ -11,7 +11,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
     end
   end
   
-  
+   # 顧客ログイン後のリダイレクト先
+  def after_sign_in_path_for(resource_or_scope)
+    mypage_path  #任意パスに変更
+  end 
   
   
   

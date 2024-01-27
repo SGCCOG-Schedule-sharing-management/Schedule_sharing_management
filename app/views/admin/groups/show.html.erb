@@ -12,20 +12,27 @@
   </div>
 <% end %>
 
+<div class="container mx-auto">
 <h6>Adminグループ詳細画面</h6>
 
-<div class="row">
-  <div class="col-md-6">
-    <% if @group.group_image.attached? %>
-      <%= image_tag @group.group_image, size: "200x200", class: "img-fluid" %>
-    <% else %>
-      <%= image_tag 'no_image_square', size: "200x200", class: "img-fluid" %>
-    <% end %>
-  </div>
-
-  <div class="col-md-5">
     <table class="table">
       <tbody>
+        <tr>
+          <td class="text-left">
+            <% if @group.group_image.attached? %>
+              <%= image_tag @group.group_image, size: "200x200", class: "img-fluid" %>
+            <% else %>
+              <%= image_tag 'no_image_square', size: "200x200", class: "img-fluid" %>
+            <% end %>
+          </td>
+          <td class="text-right"><%= link_to edit_admin_group_path(@group), class: 'btn btn-secondary' do %>
+                <i class="fa-regular fa-pen-to-square"></i> 内容を変更する
+              <% end %>
+
+              <%= link_to admin_group_path(@group), method: :delete ,class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" do %>
+                <i class="fa-regular fa-trash-can"></i> グループを削除する
+              <% end %></td>
+        </tr>
         <tr>
           <th class="table-secondary">タイトル</th>
           <td class="table-light"><%= @group.title %></td>
@@ -45,12 +52,6 @@
       </tbody>
     </table>
 
-    <%= link_to edit_admin_group_path(@group), class: 'btn btn-secondary' do %>
-      <i class="fa-regular fa-pen-to-square"></i> 内容を変更する
-    <% end %>
 
-    <%= link_to admin_group_path(@group), method: :delete ,class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" do %>
-      <i class="fa-regular fa-trash-can"></i> グループを削除する
-    <% end %>
   </div>
 </div>

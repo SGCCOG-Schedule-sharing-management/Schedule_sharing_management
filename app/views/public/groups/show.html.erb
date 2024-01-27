@@ -34,8 +34,7 @@
           <th class="table-secondary text-left">ステータス</th> 
           <td class="table-light"><% current_user_participation_ids = current_user.group_participation_applications.pluck(:group_id) %>
             <% group_status = current_user_participation_ids.include?(@group.id) ?
-                                current_user.group_participation_applications.find_by(group_id: @group.id).application_status_i18n :
-                                '未申請' %>
+                                current_user.group_participation_applications.find_by(group_id: @group.id).application_status_i18n : '未申請' %>
             <% "#{group_status}" %></br>
             <% if group_status =='承認済み' %>
                 <%= '参加中' %>

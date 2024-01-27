@@ -12,6 +12,7 @@
   </div>
 <% end %>
 
+<div class="container mx-auto">
 <h6>Admin ユーザー詳細画面</h6>
 
 <%= form_with model: @user, local: true, url: admin_user_path(@user), method: :patch do |f| %>
@@ -51,12 +52,12 @@
           <% if @user.is_active == true %></br>
             ↓ </br><%= f.radio_button :is_active, false %><%= f.label :is_active, '退会にする' %>　
             <%= f.submit '会員ステータスを更新する', class: 'btn btn-danger' %>
-          <% else %>
-            ↓ <%= f.radio_button :is_active, true %><%= f.label :is_active, '有効に戻す' %>　
+          <% else %></br>
+            ↓ </br><%= f.radio_button :is_active, true %><%= f.label :is_active, '有効に戻す' %>　
             <%= f.submit '会員ステータスを更新する', class: 'btn btn-success' %>
           <% end %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
-
+</div>

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     when Admin
       new_admin_session_path
     when User
-      new_user_session_path
+      mypage_path
     else
       new_user_session_path
     end

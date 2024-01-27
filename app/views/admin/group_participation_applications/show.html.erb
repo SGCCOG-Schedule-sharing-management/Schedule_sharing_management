@@ -1,9 +1,18 @@
-<% if flash[:error].present? %>
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
   <div class="alert alert-danger">
     <%= flash[:error] %>
   </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
 <% end %>
 
+<div class="container mx-auto">
 <h6>Adminグループ申請詳細(ステータス変更)</h6>
 
 <table class="table">
@@ -43,11 +52,11 @@
     </tr>
   </tbody>
 </table>
-  <%= link_to admin_group_participation_applications_path, class: 'btn btn-secondary' do %>
+  <%= link_to admin_group_participation_applications_path, class: 'btn btn-primary' do %>
     <i class="fa-regular fa-circle-left"></i> 申請一覧ページへ
   <% end %>
-  <%= f.submit "変更", class: "btn btn-success" %>
+  <%= f.submit "ステータス変更", class: "btn btn-secondary" %>
   <% end %>
-
+</div>
 
 

@@ -7,11 +7,17 @@ class Public::ScheduleParticipantsController < ApplicationController
 
   def create
     @user = current_user
-    schedule_id = params[:schedule_participant][:schedule_id]
-    Rails.logger.debug "Schedule ID: #{schedule_id.inspect}"
-
-    @schedule = Schedule.find(schedule_id)
-    @schedule_participant = ScheduleParticipant.new(schedule_participant_params.merge(user_id: @user.id, schedule_id: @schedule.id, date: @schedule.start_time))
+    #schedule_id = params[:schedule_participant][:schedule_id]
+    
+    #@schedule = Schedule.find(schedule_id)
+        # ラジオボタンが選択されているかどうかを確認
+    if params.dig(:schedule_participant, :attendance_status).blank?
+      flash.now[:notice] = '出欠ステータスに🔘チェックを入れてから、[回答送信]ボタンを押してください'
+      render :new
+      return
+    end
+    
+    #@schedule_participant = ScheduleParticipant.new(schedule_participant_params.merge(user_id: @user.id, schedule_id: @schedule.id, date: @schedule.start_time))
 
     if @schedule_participant.save
       flash[:success] = "出欠回答を送信しました"
@@ -21,11 +27,11 @@ class Public::ScheduleParticipantsController < ApplicationController
       redirect_to schedule_path(@schedule_participant.schedule)
     end
   end
-  
+
   def show
     @schedule = Schedule.find(params[:id])
     @schedule_participant = ScheduleParticipant.find_by(id: params[:id])
-  end 
+  end
 
   def edit
     @schedule_participant = ScheduleParticipant.find_by(id: params[:id])
@@ -34,13 +40,13 @@ class Public::ScheduleParticipantsController < ApplicationController
 
 def update
   @schedule_participant = ScheduleParticipant.find(params[:id])
-  
+
   Rails.logger.info("Permitted Params: #{params.require(:schedule_participant).permit(:attendance_status).inspect}")
   Rails.logger.info("Updated ScheduleParticipant: #{schedule_participant_params.inspect}")
 
   if @schedule_participant.update(schedule_participant_params)
     flash[:success] = "出欠ステータスを変更しました"
-    
+
     # スケジュール情報のログ出力
     Rails.logger.info("Updated ScheduleParticipant: #{schedule_participant_params.inspect}")
     redirect_to schedule_schedule_participant_path(@schedule_participant.schedule)
