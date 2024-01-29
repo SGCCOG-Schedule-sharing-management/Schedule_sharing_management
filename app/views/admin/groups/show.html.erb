@@ -1,0 +1,57 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+<h6>Adminグループ詳細画面</h6>
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="text-left">
+            <% if @group.group_image.attached? %>
+              <%= image_tag @group.group_image, size: "200x200", class: "img-fluid" %>
+            <% else %>
+              <%= image_tag 'no_image_square', size: "200x200", class: "img-fluid" %>
+            <% end %>
+          </td>
+          <td class="text-right"><%= link_to edit_admin_group_path(@group), class: 'btn btn-secondary' do %>
+                <i class="fa-regular fa-pen-to-square"></i> 内容を変更する
+              <% end %>
+
+              <%= link_to admin_group_path(@group), method: :delete ,class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" do %>
+                <i class="fa-regular fa-trash-can"></i> グループを削除する
+              <% end %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">タイトル</th>
+          <td class="table-light"><%= @group.title %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">内容</th>
+          <td class="table-light"><%= @group.content %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">本番日</th>
+          <td class="table-light"><%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">本番場所</th>
+          <td class="table-light"><%= @group.production_location.present? ? @group.production_location : '未定' %></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

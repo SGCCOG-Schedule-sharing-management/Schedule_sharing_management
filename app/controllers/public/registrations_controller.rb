@@ -11,7 +11,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
     end
   end
   
-  
+   # 顧客ログイン後のリダイレクト先
+  def after_sign_in_path_for(resource_or_scope)
+    mypage_path  #任意パスに変更
+  end 
   
   
   
@@ -59,7 +62,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :nickname, :birth_date])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :nickname, :birth_date, :email])
   end
   
   def ensure_normal_user

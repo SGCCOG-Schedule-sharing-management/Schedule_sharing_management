@@ -1,63 +1,87 @@
-<h2>新規ユーザー登録</h2>
+<div class="container">
+  <% if flash[:notice].present? %>
+    <div class="alert alert-info">
+      <%= flash[:notice] %>
+    </div>
+  <% elsif flash[:error].present? %>
+    <div class="alert alert-danger">
+      <%= flash[:error] %>
+    </div>
+  <% elsif flash[:success].present? %>
+    <div class="alert alert-success">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
 
-<%= form_with model: @user, url: user_registration_path do |f| %>
-  <%= render "public/shared/error_messages", resource: @user %>
+  <div class="container mx-auto">
+    <h2 class="text-center">新規ユーザー登録</h2>
 
-  <table class="customer_info customer_form">
-      <thead>
-        <th></th>
-        <th></th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>名前</td>
-          <td><%= f.label :first_name, "(姓)" %>
-            <%= f.text_field :first_name, autofocus: true, :placeholder =>"高良" %></td>
-          <td><%= f.label :last_name, "(名)" %>
-            <%= f.text_field :last_name, :placeholder =>"歌奏" %></td>
-        </tr>
-        <tr>
-          <td>フリガナ</td>
-          <td><%= f.label :first_name_kana, "(セイ)" %>
-            <%= f.text_field :first_name_kana, autofocus: true, :placeholder =>"コウラ" %></td>
-          <td><%= f.label :last_name_kana, "(メイ)" %>
-            <%= f.text_field :last_name_kana, :placeholder =>"カナデ" %></td>
-        </tr>
-        <tr>
-          <td><%= f.label :nickname, "ニックネーム" %></td>
-          <td colspan="2"><%= f.text_field :nickname, :placeholder =>"かなっぺ" %></td>
-        </tr>
-        <tr>
-          <td><%= f.label :birth_date, "生年月日" %></td>
-          <td colspan="2"><%= f.date_select :birth_date, start_year: Date.current.year, end_year: Date.current.year - 100, order: [:year, :month, :day], prompt: { year: '年', month: '月', day: '日' } %></td>
-        </tr>
-        <tr>
-          <td><div class="field">
-            <%= f.label :email, "メールアドレス"  %></td>
-          <td colspan="2"><%= f.email_field :email, :placeholder =>"sample@chorus.com", autocomplete: "email" %></div></td>
-        </tr>  
-        <tr>
-          <td><div class="field">
-            <%= f.label :password, "パスワード(#{@minimum_password_length}文字以上)"%></td>
-          <td colspan="2"><%= f.password_field :password, autocomplete: "new-password" %></div></td>
-        </tr>
-        <tr>
-          <td><div class="field">
-            <%= f.label :password_confirmation, "パスワード(確認用)" %></td>
-          <td colspan="2"><%= f.password_field :password_confirmation, autocomplete: "new-password" %></div></td>
-        </tr>
-      </tbody>
-    </table>
-    
+    <%= form_with model: @user, url: user_registration_path do |f| %>
+      <%= render "public/shared/error_messages", resource: @user %>
 
-  <div class="actions">
-    <%= f.submit "新規登録", class: 'btn btn-success' %>
+      <div class="table-responsive">
+        <table class="table customer_info customer_form">
+          <thead>
+            <th></th>
+            <th></th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="table-secondary">名前</th>
+              <td class="table-light">
+                <%= f.label :first_name, "(姓)" %>
+                <%= f.text_field :first_name, autofocus: true, :placeholder =>"高良", class: 'form-control' %></td>
+              <td class="table-light">
+                <%= f.label :last_name, "(名)" %>
+                <%= f.text_field :last_name, :placeholder =>"歌奏", class: 'form-control' %>
+              </td>
+            </tr>
+            <tr>
+              <th class="table-secondary">フリガナ</th>
+              <td class="table-light">
+                <%= f.label :first_name_kana, "(セイ)" %><%= f.text_field :first_name_kana, autofocus: true, :placeholder =>"コウラ", class: 'form-control' %></td>
+              <td class="table-light">
+                <%= f.label :last_name_kana, "(メイ)" %>
+                <%= f.text_field :last_name_kana, :placeholder =>"カナデ", class: 'form-control' %>
+              </td>
+            </tr>
+            <tr>
+              <th class="table-secondary"><%= f.label :nickname, "ニックネーム" %></th>
+              <td class="table-light" colspan="2">
+                <%= f.text_field :nickname, :placeholder =>"かなっぺ", class: 'form-control' %>
+              </td>
+            </tr>
+              <th class="table-secondary"><%= f.label :birth_date, "生年月日" %></th>
+              <td class="table-light" colspan="2"><%= f.date_select :birth_date, start_year: Date.current.year, end_year: Date.current.year - 100, order: [:year, :month, :day], prompt: { year: '年', month: '月', day: '日' } , class: 'form-control' %></td>
+            </tr>
+            <tr>
+              <th class="table-secondary"><div class="field">
+                <%= f.label :email, "メールアドレス"  %></th>
+              <td class="table-light" colspan="2"><%= f.email_field :email, :placeholder =>"sample@chorus.com", autocomplete: "email", class: 'form-control' %></div></td>
+            </tr>
+            <tr>
+              <th class="table-secondary"><div class="field">
+                <%= f.label :password, "パスワード(#{@minimum_password_length}文字以上)"%></th>
+              <td class="table-light" colspan="2"><%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %></div></td>
+            </tr>
+            <tr>
+              <th class="table-secondary"><div class="field">
+                <%= f.label :password_confirmation, "パスワード(確認用)" %></th>
+              <td class="table-light" colspan="2"><%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %></div></td>
+            </tr>
+         </tbody>
+        </table>
+      </div>
+
+      <div class="actions text-right">
+        <%= f.submit "新規登録", class: 'btn btn-success' %>
+      </div>
+    <% end %>
+
+    新規登録済みの方は<%= render "public/shared/links" %>
   </div>
-<% end %>
-
-<%= render "public/shared/links" %>
-
+</div>
 
 
 

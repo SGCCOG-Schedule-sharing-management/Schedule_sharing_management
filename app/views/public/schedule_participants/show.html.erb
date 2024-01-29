@@ -1,0 +1,34 @@
+
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<h6>スケジュール出欠ステータス詳細</h6>
+
+グループ名：<%= link_to @schedule.group.title, group_path(@schedule.group.id) %></br>
+分類：<%= @schedule.classification_i18n %></br>
+予定日：<%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></br>
+場所：<%= @schedule.location.present? ? @schedule.location : '未登録' %></br>
+内容：<%= @schedule.content.present? ? @schedule.content : '未登録' %></br>
+
+<% if @schedule_participant %>
+  <!-- @schedule_participant オブジェクトが存在する場合の表示 -->
+  <p>出欠ステータス: <%= @schedule_participant.attendance_status_i18n %></p>
+  <%= link_to '変更する', edit_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-secondary' %>
+<% else %>
+  <!-- @schedule_participant オブジェクトが存在しない場合の表示 -->
+    -----</br>
+  ※出欠の回答を忘れずにお願いします※</br>
+  出欠ステータス：
+  <%= link_to "回答する", new_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-primary' %>
+<% end %>

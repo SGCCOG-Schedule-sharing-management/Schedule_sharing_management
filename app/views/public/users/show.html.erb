@@ -1,1 +1,58 @@
-<h6>マイページ</h6>
+<% if flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<h6 class="text-center">マイページ</h6>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <% if @user.profile_image.attached? %>
+              <%= image_tag @user.profile_image, size: "200x200", class: "img-fluid" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "200x200", class: "img-fluid" %>
+            <% end %>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">氏名</th>
+          <td class="table-light"><%= @user.first_name %> <%= @user.last_name %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">フリガナ</th>
+          <td class="table-light"><%= @user.first_name_kana %> <%= @user.last_name_kana %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">ニックネーム</th>
+          <td class="table-light"><%= @user.nickname %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">生年月日</th>
+          <td class="table-light"><%= @user.birth_date.strftime('%Y年%m月%d日') %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">メールアドレス</th>
+          <td class="table-light"><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">自己紹介</th>
+          <td class="table-light"><%= @user.introduction.present? ? @user.introduction : '未登録' %></td>
+        </tr>
+        <tr>
+          <td></td> <!-- 空のセルを追加 -->
+          <td class="text-right">
+            <%= link_to edit_information_path, class: 'btn btn-secondary' do %>
+              <i class="fa-regular fa-pen-to-square"></i> 編集
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

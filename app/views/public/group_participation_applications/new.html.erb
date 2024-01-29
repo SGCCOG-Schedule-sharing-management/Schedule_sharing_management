@@ -1,0 +1,15 @@
+<h6>グループ参加申請</h6>
+
+<%= form_with model: @request, url: group_participation_applications_path do |f| %>
+  <%= f.hidden_field :group_id, value: @group.id %>
+  
+  <p>タイトル: <%= @group.title %></p>
+  <p>内容: <%= @group.content %></p>
+  <p>本番日: <%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></p>
+  <p>本番場所: <%= @group.production_location.present? ? @group.production_location : '未定' %></p>
+  
+  <p>コメント</p>
+  <%= f.text_area :comment, maxlength: 200, placeholder: "スケジュール調整のため、参加しやすい曜日や時間帯を入力してください。", rows: 5, cols: 40 %>
+  
+  <%= f.submit '申請', class: 'btn btn-success' %>
+<% end %>

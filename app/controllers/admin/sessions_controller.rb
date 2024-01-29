@@ -2,6 +2,7 @@
 
 class Admin::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :set_authentication_keys
 
   # GET /resource/sign_in
   # def new
@@ -30,6 +31,16 @@ class Admin::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    root_path
+    new_admin_session_path
+
+  end
+  
+  private
+
+  def set_authentication_keys
+    request.env["devise.mapping"] = Devise.mappings[:admin]
+    Devise.setup do |config|
+      config.authentication_keys = [:email]
+    end
   end
 end

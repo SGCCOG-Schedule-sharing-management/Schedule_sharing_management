@@ -1,0 +1,55 @@
+<% if flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+  <h6>Admin 新規スケジュール登録</h6>
+
+  <%= form_with model: @newschedule, url: admin_schedules_path, method: :post do |f| %>
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <th class="table-secondary">グループ名</th>
+          <td class="table-light"><%= f.select :group_id, Group.all.map { |group| [group.title, group.id] }, prompt: "グループを選択してください", id: 'schedule_group_id', class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">予定日</th>
+          <td class="table-light"><%= f.date_select :start_time, prompt: { year: '年', month: '月', day: '日' }, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">時間</th>
+          <td class="table-light">
+            <%= f.time_select :start, prompt: { hour: '時', minute: '分' }, minute_step: 5, class: 'form-control' %>
+            〜
+            <%= f.time_select :end, prompt: { hour: '時', minute: '分' }, minute_step: 5, class: 'form-control' %>
+          </td>
+        </tr>
+        <tr>
+          <th class="table-secondary">場所</th>
+          <td class="table-light"><%= f.text_field :location, id: 'schedule_location', class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">分類</th>
+          <td class="table-light text-center">
+            <% Schedule.classifications.each do |key, value| %>
+              <%= f.radio_button :classification, value, class: 'form-check-input' %>
+              <%= f.label :classification, I18n.t("enums.schedule.classification.#{key}"), class: 'form-check-label' %>　　　　
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th class="table-secondary">内容</th>
+          <td class="table-light"><%= f.text_area :content, placeholder: "練習予定の内容や持ち物、練習参加の上で連絡事項などを入力してください.", id: 'schedule_content', class: 'form-control' %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-right">
+      <%= f.submit '登録', class: 'btn btn-success' %>
+    </div>
+
+  <% end %>
+</div>
