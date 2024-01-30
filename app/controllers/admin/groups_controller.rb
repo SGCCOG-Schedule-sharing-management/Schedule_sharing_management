@@ -7,10 +7,10 @@ class Admin::GroupsController < ApplicationController
   def create
     @newgroup = Group.new(group_params)
     if @newgroup.save!
-      flash[:notice] = "新しいグループを作成しました"
+      flash[:success] = "新しいグループを作成しました"
       redirect_to admin_group_path(@newgroup)
     else
-      flash[:notice] = "新しいグループを作成できませんでした"
+      flash[:error] = "新しいグループを作成できませんでした"
       @group = Group.all
       render :new
     end

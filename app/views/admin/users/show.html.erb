@@ -13,7 +13,7 @@
 <% end %>
 
 <div class="container mx-auto">
-<h6>Admin ユーザー詳細画面</h6>
+<h6 class="text-center">Admin ユーザー詳細画面</h6>
 
 <%= form_with model: @user, local: true, url: admin_user_path(@user), method: :patch do |f| %>
 <table class="table">
@@ -46,18 +46,33 @@
       <th class="table-secondary">登録日</th>
       <td class="table-light"><%= @user.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
     </tr>
-    <tr>
-      <th class="table-secondary">会員ステータス</th>
-      <td class="table-light"><%= @user.is_active_was ? '有効' : '退会' %>
-          <% if @user.is_active == true %></br>
-            ↓ </br><%= f.radio_button :is_active, false %><%= f.label :is_active, '退会にする' %>　
-            <%= f.submit '会員ステータスを更新する', class: 'btn btn-danger' %>
-          <% else %></br>
-            ↓ </br><%= f.radio_button :is_active, true %><%= f.label :is_active, '有効に戻す' %>　
-            <%= f.submit '会員ステータスを更新する', class: 'btn btn-success' %>
-          <% end %></td>
-    </tr>
-  <% end %>
   </tbody>
 </table>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="table-info">会員ステータス</th>
+      <td class="table-light text-center"><%= @user.is_active_was ? '有効' : '退会' %>
+          <% if @user.is_active == true %></br>
+            ↓ </br>
+            <%= f.radio_button :is_active, false %><%= f.label :is_active, '退会にする' %>
+          <% else %></br>
+            ↓ </br>
+            <%= f.radio_button :is_active, true %><%= f.label :is_active, '有効に戻す' %>
+          <% end %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-right">
+  <% if @user.is_active == true %>
+    <%= f.submit '会員ステータスを更新する', class: 'btn btn-danger' %>
+  <% else %>
+    <%= f.submit '会員ステータスを更新する', class: 'btn btn-success' %>
+  <% end %>
+</div>
+
+<% end %>
+
 </div>

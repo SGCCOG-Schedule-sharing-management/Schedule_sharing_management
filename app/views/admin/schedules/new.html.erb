@@ -1,11 +1,19 @@
-<% if flash[:error].present? %>
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
   <div class="alert alert-danger">
     <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
   </div>
 <% end %>
 
 <div class="container mx-auto">
-  <h6>Admin 新規スケジュール登録</h6>
+  <h6 class="text-center">Admin 新規スケジュール登録</h6>
 
   <%= form_with model: @newschedule, url: admin_schedules_path, method: :post do |f| %>
 
