@@ -65,6 +65,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
+  gem 'spring'
 end
 
 gem "net-smtp"
