@@ -1,30 +1,28 @@
 <div class="container mx-auto">
-<h6>Admin ユーザー一覧画面</h6>
+  <h6>Admin ユーザー一覧画面</h6>
 
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th class="text-center">ID</th>
-      <th>ニックネーム</th>
-      <th>氏名</th>
-      <th>ステータス</th>
-      <th></th> <!-- 詳細ボタン用の列 -->
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+  <table class="table">
+    <thead class="thead-light">
       <tr>
-        <td class="table-light text-center"><%= user.id %></td>
-        <td class="table-light"><% if user.profile_image.attached? %>
-              <%= image_tag user.profile_image, size: "50x50" %>
-            <% else %>
-              <%= image_tag 'no_image', size: "50x50" %>
-            <% end %><%= user.nickname %></td>
-        <td class="table-light"><%= user.first_name %> <%= user.last_name %></td>
-        <td class="table-light"><%= user.is_active %></td>
-        <td class="table-light"><%= link_to '詳細', admin_user_path(user.id), class: 'btn btn-primary' %></td>
+        <th class="text-center">No,</th>
+        <th>ニックネーム</th>
+        <th>氏名</th>
+        <th>ステータス</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @users.each_with_index do |user, index| %> <!-- 各ユーザーに対してインデックスを使用 -->
+        <tr>
+          <td class="table-light text-center"><%= index + 1 %></td> <!-- インデックスを使用して1から順に番号を表示 -->
+          <td class="table-light"><% if user.profile_image.attached? %>
+                <%= image_tag user.profile_image, size: "50x50" %></br>
+              <% else %>
+                <%= image_tag 'no_image', size: "50x50" %></br>
+              <% end %><%= link_to user.nickname, admin_user_path(user.id) %></td>
+          <td class="table-light"><%= user.first_name %> <%= user.last_name %></td>
+          <td class="table-light"><%= user.is_active %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

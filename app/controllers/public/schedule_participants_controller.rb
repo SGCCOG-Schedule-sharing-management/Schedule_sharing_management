@@ -7,9 +7,9 @@ class Public::ScheduleParticipantsController < ApplicationController
 
   def create
     @user = current_user
-    #schedule_id = params[:schedule_participant][:schedule_id]
+    schedule_id = params[:schedule_participant][:schedule_id]
     
-    #@schedule = Schedule.find(schedule_id)
+    @schedule = Schedule.find(schedule_id)
         # ラジオボタンが選択されているかどうかを確認
     if params.dig(:schedule_participant, :attendance_status).blank?
       flash.now[:notice] = '出欠ステータスに🔘チェックを入れてから、[回答送信]ボタンを押してください'
@@ -17,7 +17,7 @@ class Public::ScheduleParticipantsController < ApplicationController
       return
     end
     
-    #@schedule_participant = ScheduleParticipant.new(schedule_participant_params.merge(user_id: @user.id, schedule_id: @schedule.id, date: @schedule.start_time))
+    @schedule_participant = ScheduleParticipant.new(schedule_participant_params.merge(user_id: @user.id, schedule_id: @schedule.id, date: @schedule.start_time))
 
     if @schedule_participant.save
       flash[:success] = "出欠回答を送信しました"

@@ -1,55 +1,68 @@
-<h6>スケジュール一覧</h6>
 
-<%= link_to '新規スケジュール作成', new_admin_schedule_path, class: 'btn btn-primary' %>
-
-<%= stylesheet_link_tag 'simple_calendar', media: 'all', 'data-turbolinks-track': 'reload' %>
-
-<%= month_calendar events: @schedules do |date, schedules| %>
-  <%= date.day %>
-
-  <% schedules.each do |schedule| %>
-  <div>
-    <%= link_to admin_schedule_path(schedule.id) do %>
-      <%= "#{schedule.group.title} " %>
-      <% if schedule.classification == 'other' %>
-        🥚
-      <% elsif schedule.classification == 'practice' %>
-        🐣
-      <% elsif schedule.classification == 'announcement' %>
-        🐓
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
-<% end %>
-
-
-<% future_schedules = @schedules.select { |schedule| schedule.start_time >= Date.current } %>
-<% future_schedules.sort_by!(&:start_time) %>
 
 <div class="row">
-  <div class="col-md-4">
-    <div class="schedule">今後の予定一覧</div>
-    <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th>日程</th>
-          <th>グループタイトル</th>
-          <th>分類</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% future_schedules.each do |schedule| %>
-          <tr>
-            <td><%= link_to schedule.start_time.strftime("%Y-%m-%d"), admin_schedule_path(schedule.id) %></td>
-            <td><%= schedule.group.title %></td>
-            <td><%= schedule.classification_i18n %></td>
-          </tr>
+  <div class="col-3" style="background-color: #4682B4; color: white;">
+<h6>メニュー</h6>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <%= link_to admin_users_path, class: 'nav-link' do %>
+          <i class="fa-solid fa-user"></i> ユーザー管理
         <% end %>
-      </tbody>
-    </table>
+      </li>
+      <li class="nav-item">
+        <%= link_to admin_group_participation_applications_path, class: 'nav-link' do %>
+          <i class="fa-regular fa-thumbs-up"></i> 申請一覧
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to admin_groups_path, class: 'nav-link' do %>
+          <i class="fa-solid fa-people-group"></i> グループ一覧
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to admin_schedules_path, class: 'nav-link' do %>
+          <i class="fa-regular fa-calendar-days"></i> 予定管理
+        <% end %>
+      </li>
+      <li class="nav-item mt-auto">
+        <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link' do %>
+          <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-9">
+    <h6>管理者TOP</h6>
+    <div class="row">
+      <div class="col-6">
+        <div class='card'>
+          <%= link_to admin_users_path, class: 'nav-link' do %>
+            <i class="fa-solid fa-user" style="font-size: 5em;"></i> ユーザー管理
+          <% end %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class='card'>
+          <%= link_to admin_group_participation_applications_path, class: 'nav-link' do %>
+            <i class="fa-regular fa-thumbs-up" style="font-size: 5em;"></i> 申請一覧
+          <% end %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class='card'>
+          <%= link_to admin_groups_path, class: 'nav-link' do %>
+            <i class="fa-solid fa-people-group" style="font-size: 5em;"></i> グループ一覧
+          <% end %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class='card'>
+          <%= link_to admin_schedules_path, class: 'nav-link' do %>
+            <i class="fa-regular fa-calendar-days" style="font-size: 5em;"></i> 予定管理
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-

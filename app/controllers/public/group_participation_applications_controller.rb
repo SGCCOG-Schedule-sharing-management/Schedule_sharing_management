@@ -18,10 +18,10 @@ def create
   @request.group_id = @group.id
 
   if @request.save!
-    flash[:notice] = "申請しました"
+    flash[:success] = "グループの参加申請を送信しました"
     redirect_to groups_path
   else
-    flash[:notice] = "申請できませんでした"
+    flash[:error] = "グループの参加申請を送信できませんでした"
     render :new
   end
 end

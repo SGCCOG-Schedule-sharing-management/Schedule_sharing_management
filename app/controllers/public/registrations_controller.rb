@@ -3,22 +3,22 @@
 class Public::RegistrationsController < Devise::RegistrationsController
    before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-   before_action :ensure_normal_user, only: %i[update destroy]
-  
+   before_action :ensure_normal_user, only: [:destroy]
+
   def ensure_normal_user
     if resource.nickname == 'ゲスト'
       redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
     end
   end
-  
+
    # 顧客ログイン後のリダイレクト先
   def after_sign_in_path_for(resource_or_scope)
     mypage_path  #任意パスに変更
-  end 
-  
-  
-  
-  
+  end
+
+
+
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -64,7 +64,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :nickname, :birth_date, :email])
   end
-  
+
   def ensure_normal_user
     if resource.nickname == 'ゲスト'
       redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
@@ -85,6 +85,6 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  
+
 
 end
