@@ -35,12 +35,18 @@
       <th class="table-info">タイトル</th>
       <td class="table-light"><%= f.text_field :title, placeholder: "#{@schedule.start_time.strftime("%y-%m-%d")}_活動報告", class: "form-control" %></td>
     </tr>
-    <tr>
-      <th class="table-info">参加メンバー</th>
-      <td class="table-light"><% @schedule_participants.each do |schedule_participant| %>
-            <%= content_tag(:span, schedule_participant.user.nickname, class: 'btn btn-light') %>
-          <% end %></td>
-    </tr>
+<tr>
+  <th class="table-info">参加メンバー</th>
+  <td class="table-light">
+    <% @schedule_participants.each do |schedule_participant| %>
+      <div>
+        <%= check_box_tag 'participants[]', schedule_participant.user.nickname %>
+        <%= label_tag schedule_participant.user.nickname %>
+      </div>
+    <% end %>
+  </td>
+</tr>
+
     <tr>
       <th class="table-info">活動内容</th>
       <td class="table-light"><%= f.text_area :content, class: "form-control" %></td>

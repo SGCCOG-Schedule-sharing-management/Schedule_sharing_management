@@ -26,7 +26,7 @@
 <% groups_with_dates = @groups.reject { |group| group.actual_date.nil? } %>
 <% groups_without_dates = @groups.select { |group| group.actual_date.nil? } %>
 
-<div class="row justify-content-center">
+<div class="row justify-content-left">
   <style>
     .card-img-top {
       width: 100%;
@@ -37,7 +37,7 @@
   </style>
 
   <% groups_with_dates.sort_by(&:actual_date).each do |group| %>
-    <div class="col-lg-2 col-md-2 col-sm-6 mb-3">
+    <div class="col-lg-2 col-md-4 col-sm-4 mb-3">
       <div class="card">
         <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
         <div class="card-body">

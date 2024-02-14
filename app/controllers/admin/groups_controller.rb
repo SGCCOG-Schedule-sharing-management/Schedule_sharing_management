@@ -18,7 +18,9 @@ class Admin::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @participation_applications = GroupParticipationApplication.where(group_id: @group.id)
   end
+
 
 
   def index

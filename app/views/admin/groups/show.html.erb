@@ -49,6 +49,17 @@
           <th class="table-secondary">本番場所</th>
           <td class="table-light"><%= @group.production_location.present? ? @group.production_location : '未定' %></td>
         </tr>
+        <tr>
+          <th class="table-secondary">参加メンバー</th>
+          <td class="table-light">
+            <% @participation_applications.each do |application| %>
+              <% if application.application_status == 'approved' %>
+                <%= link_to application.user.nickname, admin_user_path(application.user), class: 'btn btn-light' %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+
       </tbody>
     </table>
 

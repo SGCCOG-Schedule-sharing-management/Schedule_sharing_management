@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
     resources :groups, only:[:index, :show]
     resources :group_participation_applications, only:[:new, :create, :show]
-    
+    resources :achievements
 
 
   end
