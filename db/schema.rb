@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2023_12_25_103533) do
   create_table "achievements", force: :cascade do |t|
     t.integer "schedule_id", null: false
     t.integer "user_id", null: false
-    t.integer "schedule_participant_id", null: false
+    t.integer "schedule_participant_id"
     t.string "title", null: false
     t.string "participant"
     t.text "content"

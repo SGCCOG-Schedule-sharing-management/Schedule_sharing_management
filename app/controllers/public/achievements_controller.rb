@@ -8,6 +8,7 @@ class Public::AchievementsController < ApplicationController
 
 
 def create
+  # byebug
   @schedule = Schedule.find(params[:schedule_id])
   @achievement = Achievement.new(achievement_params)
   @achievement.schedule = @schedule
@@ -21,12 +22,14 @@ def create
   participant_names = selected_users.map(&:nickname).join(', ') # 選択されたユーザーのニックネームを保存
 
   @achievement.participant = participant_names # @achievementのparticipantを設定
-
+  @achievement.user = current_user
+  #byebug
   if @achievement.save
     flash[:success] = "活動報告を投稿しました"
-    redirect_to schedule_achievement_path(@achievement)
+    redirect_to achievement_path(@achievement)
   else
-    flash[:error] = "活動報告の投稿に失敗しました: #{@achievement.errors.full_messages.join(', ')}"
+    flash[:error] = "活動報告の投稿に失敗しました"
+    puts @achievement.errors.full_messages.join(', ')
     render :new
   end
 end
