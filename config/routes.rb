@@ -22,7 +22,10 @@ Rails.application.routes.draw do
     end
     resources :groups, only:[:index, :show]
     resources :group_participation_applications, only:[:new, :create, :show]
-    resources :achievements
+    resources :achievements do
+      resources :achievement_comments, only: [:create, :destroy]
+      resource :achievement_favorite, only: [:create, :destroy]
+    end
 
 
   end

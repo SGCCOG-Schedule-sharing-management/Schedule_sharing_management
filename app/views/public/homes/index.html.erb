@@ -12,4 +12,32 @@
   </div>
 <% end %>
 
-<%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %>
+
+<div class="container text-center">
+  <h3>ようこそ！<br>Legato Schedule へ♪</h3>
+  <%= image_tag 'logo.jpg', alt: 'ロゴ', style: 'border-radius: 50%; border: 5px solid #5F9EA0;' %><br>
+  グループへ参加し本番までのスケジュールを確認したり、<br>
+  活動内容を記録することができます。
+
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
+        <ul class="nav flex-column">
+          <li class="nav-item"><%= link_to groups_path, class: 'nav-link text-dark' do %>
+            <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
+        <ul class="nav flex-column">
+          <li class="nav-item"><%= link_to schedules_path, class: 'nav-link text-dark' do %>
+            <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定一覧
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -54,11 +54,16 @@
           <td class="table-light">
             <% @participation_applications.each do |application| %>
               <% if application.application_status == 'approved' %>
-                <%= link_to application.user.nickname, admin_user_path(application.user), class: 'btn btn-light' %>
+                <% if application.user.present? %>
+                  <%= link_to application.user.nickname, admin_user_path(application.user), class: 'btn btn-light' %>
+                <% else %>
+                  <span class="text-muted">ユーザーが存在しません</span>
+                <% end %>
               <% end %>
             <% end %>
           </td>
         </tr>
+
 
       </tbody>
     </table>

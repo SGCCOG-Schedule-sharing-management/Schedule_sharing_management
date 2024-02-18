@@ -19,44 +19,44 @@
   <table class="table table-bordered">
   　<thead class="table-secondary">
   　　<tr>
-  　　  <th class="col-xs-1 col-sm-1 col-md-2 col-lg-2">項目</th>
-  　　　<th class="col-xs-5 col-sm-5 col-md-5 col-lg-5">現在の予定内容</th>
-  　　　<th class="col-xs-5 col-sm-5 col-md-5 col-lg-5">変更後の内容</th>
+    　　  <th class="col-xs-1 col-sm-1 col-md-2 col-lg-2">項目</th>
+    　　　<th class="col-xs-5 col-sm-5 col-md-5 col-lg-5">現在の予定内容</th>
+    　　　<th class="col-xs-5 col-sm-5 col-md-5 col-lg-5">変更後の内容</th>
   　　</tr>
   　</thead>
   　<tbody>
   　　<tr>
-  　　　<th class="table-secondary">グループ名</th>
-  　　　<td class="table-light"><%= link_to @schedule.group.title, admin_schedule_path(@schedule.group_id) %></td>
-  　　　<td class="table-light"><%= f.select :group_id, Group.all.map { |group| [group.title, group.id] }, prompt: "グループを選択してください", id: 'schedule_group_id' %></td>
+    　　　<th class="table-secondary">グループ名</th>
+    　　　<td class="table-light"><%= link_to @schedule.group.title, admin_schedule_path(@schedule.group_id) %></td>
+    　　　<td class="table-light"><%= f.select :group_id, Group.all.map { |group| [group.title, group.id] }, prompt: "グループを選択してください", id: 'schedule_group_id' %></td>
   　　</tr>
   　　<tr>
-  　　　<th class="table-secondary">分類</th>
-  　　　<td class="table-light"><%= @schedule.classification_i18n %></td>
-  　　　<td class="table-light"><% Schedule.classifications.each do |key, value| %>
-              <%= f.radio_button :classification, value %>
-              <%= f.label :classification, I18n.t("enums.schedule.classification.#{key}") %>　
-            <% end %></td>
+    　　　<th class="table-secondary">分類</th>
+    　　　<td class="table-light"><%= @schedule.classification_i18n %></td>
+    　　　<td class="table-light"><% Schedule.classifications.each do |key, value| %>
+                <%= f.radio_button :classification, value %>
+                <%= f.label :classification, I18n.t("enums.schedule.classification.#{key}") %>　
+              <% end %></td>
   　　</tr>
   　　<tr>
-  　　  <th class="table-secondary">予定日</th>
-  　　  <td class="table-light"><%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></td>
-  　　  <td class="table-light"><%= f.date_select :start_time %></td>
+    　　  <th class="table-secondary">予定日</th>
+    　　  <td class="table-light"><%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></td>
+    　　  <td class="table-light"><%= f.date_select :start_time %></td>
   　　</tr>
   　　<tr>
-  　　  <th class="table-secondary">時間</th>
-  　　  <td class="table-light"><%= @schedule.start.present? ? @schedule.start.strftime("%H時%M分") : '未登録' %>〜<%= @schedule.end.present? ? @schedule.end.strftime("%H時%M分") : '未登録' %></td>
-  　　  <td class="table-light"><%= f.time_select :start, prompt: { hour: '時', minute: '分' }, minute_step: 5 %>〜<%= f.time_select :end, prompt: { hour: '時', minute: '分' }, minute_step: 5 %></td>
+    　　  <th class="table-secondary">時間</th>
+    　　  <td class="table-light"><%= @schedule.start.present? ? @schedule.start.strftime("%H時%M分") : '未登録' %>〜<%= @schedule.end.present? ? @schedule.end.strftime("%H時%M分") : '未登録' %></td>
+    　　  <td class="table-light"><%= f.time_select :start, prompt: { hour: '時', minute: '分' }, minute_step: 5 %>〜<%= f.time_select :end, prompt: { hour: '時', minute: '分' }, minute_step: 5 %></td>
   　　</tr>
   　　<tr>
-  　　　<th class="table-secondary">場所</th>
-  　　　<td class="table-light"><%= @schedule.location.present? ? @schedule.location : '未登録' %></td>
-  　　　<td class="table-light"><%= f.text_field :location, class: 'form-control' %></td>
+    　　　<th class="table-secondary">場所</th>
+    　　　<td class="table-light"><%= @schedule.location.present? ? @schedule.location : '未登録' %></td>
+    　　　<td class="table-light"><%= f.text_field :location, class: 'form-control' %></td>
   　　</tr>
   　　<tr>
-  　　　<th class="table-secondary">内容</th>
-  　　　<td class="table-light"><%= @schedule.content.present? ? @schedule.content : '未登録' %></td>
-  　　　<td class="table-light"><%= f.text_area :content, class: 'form-control' %></td>
+    　　　<th class="table-secondary">内容</th>
+    　　　<td class="table-light"><%= @schedule.content.present? ? @schedule.content : '未登録' %></td>
+    　　　<td class="table-light"><%= f.text_area :content, class: 'form-control' %></td>
   　　</tr>
   　</tbody>
   </table>

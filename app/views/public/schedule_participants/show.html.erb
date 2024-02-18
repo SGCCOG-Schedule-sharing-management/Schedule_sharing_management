@@ -24,7 +24,7 @@
 <% if @schedule_participant %>
   <!-- @schedule_participant オブジェクトが存在する場合の表示 -->
   <p>出欠ステータス: <%= @schedule_participant.attendance_status_i18n %></p>
-  <%= link_to '変更する', edit_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-secondary' %>
+  <%= link_to '変更する', edit_schedule_schedule_participant_path(@schedule_participant), class: 'btn btn-secondary' %>
 <% else %>
   <!-- @schedule_participant オブジェクトが存在しない場合の表示 -->
     -----</br>

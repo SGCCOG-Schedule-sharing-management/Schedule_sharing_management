@@ -8,7 +8,7 @@ class Public::ScheduleParticipantsController < ApplicationController
   def create
     @user = current_user
     schedule_id = params[:schedule_participant][:schedule_id]
-    
+
     @schedule = Schedule.find(schedule_id)
         # ラジオボタンが選択されているかどうかを確認
     if params.dig(:schedule_participant, :attendance_status).blank?
@@ -16,14 +16,14 @@ class Public::ScheduleParticipantsController < ApplicationController
       render :new
       return
     end
-    
+
     @schedule_participant = ScheduleParticipant.new(schedule_participant_params.merge(user_id: @user.id, schedule_id: @schedule.id, date: @schedule.start_time))
 
     if @schedule_participant.save
       flash[:success] = "出欠回答を送信しました"
       redirect_to schedule_path(@schedule_participant.schedule)
     else
-      flash[:error] = "出欠回答できませんでした"
+      flash[:error] = "出欠回答できませんでした: " + @schedule_participant.errors.full_messages.join(", ")
       redirect_to schedule_path(@schedule_participant.schedule)
     end
   end
@@ -36,7 +36,9 @@ class Public::ScheduleParticipantsController < ApplicationController
   def edit
     @schedule_participant = ScheduleParticipant.find_by(id: params[:id])
     Rails.logger.info("Edit ScheduleParticipant - ScheduleParticipant: #{@schedule_participant.inspect}")
+    Rails.logger.info("Params[:id]: #{params[:id]}")
   end
+
 
 def update
   @schedule_participant = ScheduleParticipant.find(params[:id])
@@ -49,7 +51,7 @@ def update
 
     # スケジュール情報のログ出力
     Rails.logger.info("Updated ScheduleParticipant: #{schedule_participant_params.inspect}")
-    redirect_to schedule_schedule_participant_path(@schedule_participant.schedule)
+    redirect_to schedule_path(@schedule_participant.schedule)
   else
     flash[:error] = "出欠ステータスを変更できませんでした"
     redirect_to edit_schedule_schedule_participant_path(@schedule_participant.schedule)

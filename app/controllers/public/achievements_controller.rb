@@ -34,27 +34,39 @@ def create
   end
 end
 
-
-
-
-
-
-
   def show
     @achievement = Achievement.find(params[:id])
-  end
-
-  def index
+    @achievement_comment = AchievementComment.new
   end
 
   def edit
+    @achievement = Achievement.find(params[:id])
   end
 
   def update
+    @achievement = Achievement.find(params[:id])
+    
+    if @achievement.update(achievement_params)
+      flash[:success] = "活動報告を修正しました"
+      redirect_to achievement_path(@achievement)
+    else
+      flash[:error] = "活動報告を修正できませんでした"
+      render :edit
+    end
   end
 
   def destroy
+    @achievement = Achievement.find(params[:id])
+    @schedule = Schedule.find(@achievement.schedule_id) # 関連付けられているスケジュールのIDを使用してスケジュールを検索する
+    if @achievement.destroy
+      flash[:success] = "投稿を削除しました"
+      redirect_to schedule_path(@schedule)
+    else
+      flash[:error] = "投稿の削除に失敗しました"
+      redirect_back(fallback_location: root_path)
+    end
   end
+
 
   private
   def achievement_params

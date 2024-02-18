@@ -13,55 +13,87 @@
 <% end %>
 
 <div class="container mx-auto">
-<h6>スケジュール詳細</h6>
-<% if @schedule_participant.present? && @schedule_participant.attendance_status != 'abstention' %>
-  <%= link_to '活動報告を書く', new_schedule_achievement_path(schedule_id: @schedule.id), class: 'btn btn-primary' %>
-<% end %>
-
-<table class="table">
-  <tbody>
-    <tr>
-      <th class="table-secondary">グループ名</th>
-      <td class="table-light"><%= link_to @schedule.group.title, group_path(@schedule.group.id) %></td>
-    </tr>
-    <tr>
-      <th class="table-secondary">分類</th>
-      <td class="table-light"><%= @schedule.classification_i18n %></td>
-    </tr>
-    <tr>
-      <th class="table-secondary">予定日</th>
-      <td class="table-light"><%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></td>
-    </tr>
-    <tr>
-      <th class="table-secondary">時間</th>
-      <td class="table-light"><%= @schedule.start.present? ? @schedule.start.strftime("%H:%M") : '未登録' %>〜<%= @schedule.end.present? ? @schedule.end.strftime("%H:%M") : '未登録' %></td>
-    </tr>
-    <tr>
-      <th class="table-secondary">場所</th>
-      <td class="table-light"><%= @schedule.location.present? ? @schedule.location : '未登録' %></td>
-    </tr>
-    <tr>
-      <th class="table-secondary">内容</th>
-      <td class="table-light"><%= @schedule.content.present? ? @schedule.content : '未登録' %></td>
-    </tr>
-    <!--tr>
-      <th>参加予定者</th>
-      <td><!%= @planned_participants.user.nickname.present? ? @planned_participants.user.nickname : '未登録' %></td>
-    </tr-->
-    <% if @schedule_participant.present? %><!-- @schedule_participant オブジェクトが存在する場合の表示 -->
-    <tr>
-      <th class="table-secondary">出欠ステータス</th>
-      <td class="table-light"><%= @schedule_participant.attendance_status_i18n %><%= link_to '変更する', edit_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-secondary' %></td>
-    </tr>
-    <% else %>
-    <tr>
-      <th class="table-secondary">出欠ステータス</th><!-- @schedule_participant オブジェクトが存在しない場合の表示 -->
-      <td class="table-light">※出欠の回答を忘れずにお願いします※</br>
-          <%= link_to "回答する", new_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-primary' %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <h6>スケジュール詳細</h6>
+  <% if @schedule_participant.present? && @schedule_participant.attendance_status != 'abstention' %>
+    <%= link_to '活動報告を書く', new_schedule_achievement_path(schedule_id: @schedule.id), class: 'btn btn-primary' %>
+  <% end %>
+  
+  <% if @achievements.present? %>
+    <h6>活動報告一覧</h6>
+    
+    <table class="table">
+      <thead class="table-primary">
+        <tr>
+          <td>タイトル</td>
+          <td>投稿者</td>
+          <td>投稿日</td>
+        </tr>
+      </thead>
+      <tbody class="table-light">
+        <% @achievements.each do |achievement| %>
+        <tr>
+          <td><%= link_to achievement.title, achievement_path(achievement) %></td>
+          <td>
+            <% if achievement.user.profile_image.present? %>
+              <%= image_tag(achievement.user.profile_image, size: "20x20", class: "img-fluid") %>
+            <% else %>
+              <%= image_tag('no_image', size: "20x20", class: "img-fluid") %>
+            <% end %>
+            <%= achievement.user.nickname %>
+          </td>
+          <td><%= achievement.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+  <% end %>
+  
+  
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="table-secondary">グループ名</th>
+        <td class="table-light"><%= link_to @schedule.group.title, group_path(@schedule.group.id) %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">分類</th>
+        <td class="table-light"><%= @schedule.classification_i18n %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">予定日</th>
+        <td class="table-light"><%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">時間</th>
+        <td class="table-light"><%= @schedule.start.present? ? @schedule.start.strftime("%H:%M") : '未登録' %>〜<%= @schedule.end.present? ? @schedule.end.strftime("%H:%M") : '未登録' %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">場所</th>
+        <td class="table-light"><%= @schedule.location.present? ? @schedule.location : '未登録' %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">内容</th>
+        <td class="table-light"><%= @schedule.content.present? ? @schedule.content : '未登録' %></td>
+      </tr>
+      <!--tr>
+        <th>参加予定者</th>
+        <td><!%= @planned_participants.user.nickname.present? ? @planned_participants.user.nickname : '未登録' %></td>
+      </tr-->
+      <% if @schedule_participant.present? %><!-- @schedule_participant オブジェクトが存在する場合の表示 -->
+        <tr>
+          <th class="table-secondary">出欠ステータス</th>
+          <td class="table-light"><%= @schedule_participant.attendance_status_i18n %>　<%= link_to 'ステータスを変更する', edit_schedule_schedule_participant_path(@schedule_participant), class: 'btn btn-secondary' %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <th class="table-secondary">出欠ステータス</th><!-- @schedule_participant オブジェクトが存在しない場合の表示 -->
+          <td class="table-light">※出欠の回答を忘れずにお願いします※</br>
+              <%= link_to "回答する", new_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-primary' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <!--出欠ステータス：

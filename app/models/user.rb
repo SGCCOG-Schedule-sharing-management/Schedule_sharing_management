@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :group_participation_applications
   has_many :schedule_participant, dependent: :destroy
   has_one_attached :profile_image
+  has_many :achievement_favorites, dependent: :destroy
+  has_many :achievement_comments, dependent: :destroy
   
   def get_profile_image(width, height)
     unless profile_image.attached?

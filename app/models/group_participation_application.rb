@@ -1,7 +1,7 @@
 class GroupParticipationApplication < ApplicationRecord
   #has_many :users, dependent: :destroy
   belongs_to :group
-  belongs_to :user
+  belongs_to :user, dependent: :destroy  # ユーザーが削除された場合にグループ申請も同時に削除される
   # group が存在することを検証するバリデーション
   validates :group, presence: true
   
