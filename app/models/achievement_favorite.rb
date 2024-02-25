@@ -1,6 +1,6 @@
 class AchievementFavorite < ApplicationRecord
   
-  belongs_to :user, dependent: :destroy  # ユーザーが削除された場合いいねも削除される
+  belongs_to :user
   belongs_to :achievement
   
   # user_idとachievement_idのペアが一意である（重複しない）状態に制限

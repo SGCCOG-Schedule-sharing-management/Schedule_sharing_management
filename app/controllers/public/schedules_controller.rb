@@ -17,6 +17,7 @@ class Public::SchedulesController < ApplicationController
     @schedule_participant = ScheduleParticipant.find_by(schedule_id: params[:id], user_id: current_user.id)
     @planned_participants = @schedule.schedule_participants.where(attendance_status: ['joining'])
     @achievements = Achievement.where(schedule_id: [@schedule])
+
   end
 
 end

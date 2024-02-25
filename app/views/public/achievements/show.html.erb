@@ -46,8 +46,11 @@
       </tr>
       <tr>
         <th class="table-secondary text-left">ファイル</th>
-        <td class="table-light"><%= image_tag(@achievement.post_image, size: "200x200", class: "img-fluid") %></td>
+        <td class="table-light">
+          <%= image_tag(@achievement.post_image.present? ? @achievement.post_image : 'no_image_square', size: "200x200", class: "img-fluid") %>
+        </td>
       </tr>
+
       <tr>
         <td class="table-active"><i class="fa-regular fa-comment" style="font-size: 1.5em;"></i> <%= @achievement.achievement_comments.count %> コメント　
           <% if @achievement.favorited_by?(current_user) %>
@@ -75,7 +78,7 @@
             <% if comment.user.profile_image.attached? %>
               <%= image_tag(comment.user.profile_image, size: '50x50', style: 'border-radius: 50%;') %><br>
             <% else %>
-              <%= image_tag('no_image.jpg', size: "50x50") %><br>
+              <%= image_tag('no_image.jpg', size: "50x50", style: 'border-radius: 50%;') %><br>
             <% end %>
             <%= comment.user.nickname %>
           </td>

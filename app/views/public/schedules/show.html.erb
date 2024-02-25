@@ -17,10 +17,10 @@
   <% if @schedule_participant.present? && @schedule_participant.attendance_status != 'abstention' %>
     <%= link_to '活動報告を書く', new_schedule_achievement_path(schedule_id: @schedule.id), class: 'btn btn-primary' %>
   <% end %>
-  
+
   <% if @achievements.present? %>
     <h6>活動報告一覧</h6>
-    
+
     <table class="table">
       <thead class="table-primary">
         <tr>
@@ -46,10 +46,10 @@
         <% end %>
       </tbody>
     </table>
-    
+
   <% end %>
-  
-  
+
+
   <table class="table">
     <tbody>
       <tr>
@@ -83,13 +83,14 @@
       <% if @schedule_participant.present? %><!-- @schedule_participant オブジェクトが存在する場合の表示 -->
         <tr>
           <th class="table-secondary">出欠ステータス</th>
-          <td class="table-light"><%= @schedule_participant.attendance_status_i18n %>　<%= link_to 'ステータスを変更する', edit_schedule_schedule_participant_path(@schedule_participant), class: 'btn btn-secondary' %></td>
+          <td class="table-light"><%= @schedule_participant.attendance_status_i18n %>　<%= link_to 'ステータスを変更する', edit_schedule_schedule_participant_path(@schedule.id,@schedule_participant.id), class: 'btn btn-secondary' %></td>
         </tr>
       <% else %>
         <tr>
           <th class="table-secondary">出欠ステータス</th><!-- @schedule_participant オブジェクトが存在しない場合の表示 -->
           <td class="table-light">※出欠の回答を忘れずにお願いします※</br>
-              <%= link_to "回答する", new_schedule_schedule_participant_path(schedule_id: @schedule.id), class: 'btn btn-primary' %></td>
+
+              <%= link_to "回答する", new_schedule_schedule_participant_path(@schedule.id), class: 'btn btn-primary' %></td>
         </tr>
       <% end %>
     </tbody>

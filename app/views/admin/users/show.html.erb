@@ -13,7 +13,7 @@
 <% end %>
 
 <div class="container mx-auto">
-<h6 class="text-center">Admin ユーザー詳細画面</h6>
+<h6 class="text-center">ユーザー詳細画面 [<%= @user.nickname %>]</h6>
 
 <%= form_with model: @user, local: true, url: admin_user_path(@user), method: :patch do |f| %>
 <table class="table">

@@ -43,8 +43,9 @@
     </tr>
     <tr>
       <th class="table-info">申請ステータス</th>
-      <td class="table-light"><%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
+      <td class="table-light">
           現在のステータス：<%= now_status = @application.application_status_i18n %></br>　↓　</br>
+          <%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
           <% if now_status == "未処理" %>
             <%= f.radio_button :application_status, 1 %> 承認
             <%= f.radio_button :application_status, 2 %> 却下

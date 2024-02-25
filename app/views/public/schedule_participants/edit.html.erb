@@ -17,7 +17,7 @@
   <% Rails.logger.info("Schedule in View: #{(@schedule_participant && @schedule_participant.schedule).inspect}") %>
   
   <table class="table">
-    <%= form_with model: @schedule_participant, url: schedule_schedule_participant_path(@schedule_participant.schedule), method: :patch do |f| %>
+    
     <tbody>
       <% if @schedule_participant && @schedule_participant.schedule %>
       <tr>
@@ -50,6 +50,7 @@
   </table>
 
   ※以下より出欠ステータスの変更を送信してください※
+  <%= form_with model: @schedule_participant, url: schedule_schedule_participant_path(@schedule_participant.schedule), method: :patch do |f| %>
   <table class="table">
     <tbody>
       <tr>

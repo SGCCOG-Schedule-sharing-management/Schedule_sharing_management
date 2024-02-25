@@ -35,12 +35,15 @@
           </div>
         <% end %>
 
-        <div class="actions text-center">
-          <%= f.submit "管理者としてログインする", class: 'btn btn-success' %>
+        <div class="row justify-content-center"> 
+          <div class="col-auto"> 
+            <%= f.submit "管理者としてログインする", class: 'btn btn-success' %>
+          </div>
+          <div class="col-auto"> 
+            <%= link_to 'ユーザーログイン画面へ', new_user_session_path, class: 'btn btn-light' %>
+          </div>
         </div>
       <% end %>
-
-      <%= link_to 'ユーザーログイン画面へ', new_user_session_path, class: 'btn btn-light mt-3' %>
 
       <%= render "admin/shared/links" %>
     </div>

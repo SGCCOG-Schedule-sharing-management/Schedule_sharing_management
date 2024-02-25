@@ -1,3 +1,18 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+
 <h6>スケジュール一覧</h6>
 
 <%= stylesheet_link_tag 'simple_calendar', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -6,19 +21,46 @@
   <%= date.day %>
 
   <% schedules.each do |schedule| %>
-  <div>
-    <%= link_to schedule_path(schedule.id) do %>
-      <%= "#{schedule.group.title} " %>
-      <% if schedule.classification == 'other' %>
-        🥚
-      <% elsif schedule.classification == 'practice' %>
-        🐣
-      <% elsif schedule.classification == 'announcement' %>
-        🐓
+    <div>
+      <%= link_to schedule_path(schedule.id) do %>
+        <%= "#{schedule.group.title} " %>
+        <% if schedule.classification == 'other' %>
+          🥚
+        <% elsif schedule.classification == 'practice' %>
+          🐣
+        <% elsif schedule.classification == 'announcement' %>
+          🐓
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+
+<% future_schedules = @schedules.select { |schedule| schedule.start_time >= Date.current } %>
+<% future_schedules.sort_by!(&:start_time) %>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="schedule">今後の予定一覧</div>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>日程</th>
+          <th>グループタイトル</th>
+          <th>分類</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-light">
+        <% future_schedules.each do |schedule| %>
+          <tr>
+            <td><%= link_to schedule.start_time.strftime("%Y-%m-%d"), schedule_path(schedule.id) %></td>
+            <td><%= schedule.group.title %></td>
+            <td><%= schedule.classification_i18n %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
-<% end %>
-<% end %>
-
-
+</div>
