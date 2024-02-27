@@ -1,0 +1,54 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+<h6 class="text-center">グループ参加申請</h6>
+
+<%= form_with model: @request, url: group_participation_applications_path do |f| %>
+  <%= f.hidden_field :group_id, value: @group.id %>
+  
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="table-secondary">タイトル</th>
+        <td class="table-light"><%= @group.title %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">内容</th>
+        <td class="table-light"><%= @group.content %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">本番日</th>
+        <td class="table-light"><%= @group.actual_date.present? ? @group.actual_date.strftime('%Y年%m月%d日（%a）') : '未定' %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">本番場所</th>
+        <td class="table-light"><%= @group.production_location.present? ? @group.production_location : '未定' %></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="table-info">コメント</th>
+        <td class="table-light"> <%= f.text_area :comment, maxlength: 200, placeholder: "スケジュール調整のため、参加しやすい曜日や時間帯を入力してください。", rows: 5, cols: 40, class: "form-control" %></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="text-right">   
+    <%= f.submit '申請', class: 'btn btn-success' %>
+  <% end %>
+  </div>
+</div>

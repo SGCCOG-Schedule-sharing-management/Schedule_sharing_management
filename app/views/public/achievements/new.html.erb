@@ -1,0 +1,71 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+<h6 class="text-center">活動報告</h6>
+
+<%= form_with model: [@schedule, @achievement], url: schedule_achievements_path, method: :post, multipart: true do |f| %>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="table-secondary">グループ名</th>
+      <td class="table-light"><%= link_to @schedule.group.title, group_path(@schedule.group.id) %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary">日時</th>
+      <td class="table-light"><%= @schedule.start_time.strftime("%Y年%m月%d日(%a)") %>　<%= @schedule.start.strftime("%H:%M") %>〜<%= @schedule.end.strftime("%H:%M") %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td></td>
+    </tr>
+    <tr>
+      <th class="table-info">タイトル</th>
+      <td class="table-light"><%= f.text_field :title, placeholder: "#{@schedule.start_time.strftime("%y-%m-%d")}_活動報告", class: "form-control" %></td>
+    </tr>
+<tr>
+  <th class="table-info">参加メンバー</th>
+  <td class="table-light">
+    <% @schedule_participants.each do |schedule_participant| %>
+      <div>
+        <%= check_box_tag 'participants[]', schedule_participant.user.nickname %>
+        <%= label_tag schedule_participant.user.nickname %>
+      </div>
+    <% end %>
+  </td>
+</tr>
+
+    <tr>
+      <th class="table-info">活動内容</th>
+      <td class="table-light"><%= f.text_area :content, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th class="table-info">Memo</th>
+      <td class="table-light"><%= f.text_area :comment, placeholder: '次回の予定など', class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th class="table-info">ファイル</th>
+      <td class="table-light"><%= f.file_field :post_image, class: "form-control" %></td>
+    </tr>
+  </tbody>
+</table>
+
+  <%= f.hidden_field :schedule_id, value: @schedule.id %>
+  
+  <div class="text-right"> 
+    <%= f.submit '投稿', class: 'btn btn-success' %>
+  <% end %>
+  </div>
+</div>

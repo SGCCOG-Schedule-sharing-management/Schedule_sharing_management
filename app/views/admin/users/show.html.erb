@@ -1,0 +1,78 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+<h6 class="text-center">ユーザー詳細画面 [<%= @user.nickname %>]</h6>
+
+<%= form_with model: @user, local: true, url: admin_user_path(@user), method: :patch do |f| %>
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="table-secondary">管理No.</th>
+      <td class="table-light"><%= @user.id %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary">ニックネーム</th>
+      <td class="table-light"><%= @user.nickname %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary">氏名</th>
+      <td class="table-light"><%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary">シメイ</th>
+      <td class="table-light"><%= @user.first_name_kana %><%= @user.last_name_kana %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary">生年月日</th>
+      <td class="table-light"><%= @user.birth_date.strftime('%Y年%m月%d日') %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary">メールアドレス</th>
+      <td class="table-light"><%= @user.email %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary">登録日</th>
+      <td class="table-light"><%= @user.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="table-info">会員ステータス</th>
+      <td class="table-light text-center"><%= @user.is_active_was ? '有効' : '退会' %>
+          <% if @user.is_active == true %></br>
+            ↓ </br>
+            <%= f.radio_button :is_active, false %><%= f.label :is_active, '退会にする' %>
+          <% else %></br>
+            ↓ </br>
+            <%= f.radio_button :is_active, true %><%= f.label :is_active, '有効に戻す' %>
+          <% end %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-right">
+  <% if @user.is_active == true %>
+    <%= f.submit '会員ステータスを更新する', class: 'btn btn-danger' %>
+  <% else %>
+    <%= f.submit '会員ステータスを更新する', class: 'btn btn-success' %>
+  <% end %>
+</div>
+
+<% end %>
+
+</div>

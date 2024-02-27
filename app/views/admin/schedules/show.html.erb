@@ -1,0 +1,63 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+<h6 class="text-center">Admin スケジュール詳細</h6>
+
+<div class="text-right">
+  <%= link_to edit_admin_schedule_path(@schedule), class: 'btn btn-secondary' do %>
+    <i class="fa-regular fa-pen-to-square"></i> 編集
+  <% end %>
+
+  <%= link_to admin_schedule_path(@schedule), method: :delete ,class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" do %>
+    <i class="fa-regular fa-trash-can"></i> 削除
+  <% end %>
+</div>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="table-secondary text-left">グループ名</th>
+      <td class="table-light"><%= link_to @schedule.group.title, admin_group_path(@schedule.group.id) %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">分類</th>
+      <td class="table-light"><%= @schedule.classification_i18n %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">予定日</th>
+      <td class="table-light"><%= @schedule.start_time.present? ? @schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">時間</th>
+      <td class="table-light"><%= @schedule.start.present? ? @schedule.start.strftime("%H時%M分") : '未登録' %>〜<%= @schedule.end.present? ? @schedule.end.strftime("%H時%M分") : '未登録' %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">場所</th>
+      <td class="table-light"><%= @schedule.location.present? ? @schedule.location : '未登録' %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">内容</th>
+      <td class="table-light"><%= @schedule.content.present? ? @schedule.content : '未登録' %></td>
+    </tr>
+    <tr>
+      <th class="table-secondary text-left">参加予定者</th>
+      <td class="table-light"><%= link_to @schedule_participant.user.nickname, admin_user_path(@schedule_participant.user), class: 'btn btn-light' %></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+

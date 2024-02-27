@@ -1,0 +1,33 @@
+<div class="container mx-auto">
+  <h6>ユーザー一覧画面</h6>
+
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th class="text-center">No,</th>
+        <th>ニックネーム</th>
+        <th>氏名</th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each_with_index do |user, index| %> <!-- 各ユーザーに対してインデックスを使用 -->
+        <tr>
+          <td class="table-light text-center"><%= index + 1 %></td> <!-- インデックスを使用して1から順に番号を表示 -->
+          <td class="table-light"><% if user.profile_image.attached? %>
+                <%= link_to image_tag(user.profile_image, size: "50x50"), admin_user_path(user.id) %></br>
+              <% else %>
+                <%= link_to image_tag( 'no_image', size: "50x50"), admin_user_path(user.id) %></br>
+              <% end %><%= link_to user.nickname, admin_user_path(user.id) %></td>
+          <td class="table-light"><%= user.first_name %> <%= user.last_name %></td>
+          <% if user.is_active == true %>
+            <td class="table-light"><%= content_tag :span, '有効', class: 'text-success' %></td>
+          <% elsif user.is_active == false %>
+            <td class="table-light"><%= content_tag :span, '退会', class: 'text-danger' %></td>
+          <% end %>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
