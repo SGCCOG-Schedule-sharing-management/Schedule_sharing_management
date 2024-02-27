@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <% if flash[:notice].present? %>
+        <div class="alert alert-info">
+          <%= flash[:notice] %>
+        </div>
+      <% elsif flash[:error].present? %>
+        <div class="alert alert-danger">
+          <%= flash[:error] %>
+        </div>
+      <% elsif flash[:success].present? %>
+        <div class="alert alert-success">
+          <%= flash[:success] %>
+        </div>
+      <% end %>
+
+      <h2 class="text-center">管理者ログイン</h2>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form"}) do |f| %>
+        <div class="form-group">
+          <%= f.label :email, "管理者メールアドレス" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, "パスワード" %><br />
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="form-group">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+
+        <div class="row justify-content-center"> 
+          <div class="col-auto"> 
+            <%= f.submit "管理者としてログインする", class: 'btn btn-success' %>
+          </div>
+          <div class="col-auto"> 
+            <%= link_to 'ユーザーログイン画面へ', new_user_session_path, class: 'btn btn-light' %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= render "admin/shared/links" %>
+    </div>
+  </div>
+</div>

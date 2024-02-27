@@ -1,0 +1,148 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+
+  <h6 class="text-center">活動報告詳細　[<%= @achievement.schedule.group.title %>(<%= @achievement.schedule.start_time %><%= @achievement.schedule.classification_i18n %>)]</h6>
+
+  <% if @achievement.user == current_user %>
+    <%= link_to edit_achievement_path(@achievement), class: 'btn btn-secondary' do %>
+      <i class="fa-regular fa-pen-to-square"></i> 編集
+    <% end %>
+
+    <%= link_to achievement_path(@achievement), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" do %>
+      <i class="fa-regular fa-trash-can"></i> 投稿を削除する
+    <% end %>
+  <% end %>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="table-secondary text-left">タイトル</th>
+        <td class="table-light"><%= @achievement.title %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary text-left">参加者</th>
+        <td class="table-light"><%= @achievement.participant %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary text-left">活動内容</th>
+        <td class="table-light"><%= @achievement.content %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary text-left">次回への引き継ぎ(メモ)</th>
+        <td class="table-light"><%= @achievement.comment %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary text-left">ファイル</th>
+<td class="table-light">
+
+  <% if @achievement.post_image.attached? %>
+    <% if @achievement.post_image.content_type == "video/mp4" %>
+      <video width="200" height="200" controls>
+        <source src="<%= rails_blob_path(@achievement.post_image) %>" type="video/mp4">
+      </video>
+    <% else %>
+      <%= image_tag url_for(@achievement.post_image), size: "200x200", class: "img-fluid" %>
+    <% end %>
+  <% else %>
+    ファイルなし
+  <% end %>
+</td>
+
+
+
+
+      </tr>
+
+      <tr>
+        <td class="table-active"><i class="fa-regular fa-comment" style="font-size: 1.5em;"></i> <%= @achievement.achievement_comments.count %> コメント
+          <% if @achievement.favorited_by?(current_user) %>
+              <%= link_to achievement_achievement_favorite_path(@achievement), method: :delete, class: "text-danger" do %>
+                <i class="fa-solid fa-heart" style="font-size: 1.5em;"></i>
+              <% end %>
+              <%= @achievement.achievement_favorites.count %> いいね
+            <% else %>
+              <%= link_to achievement_achievement_favorite_path(@achievement), method: :post do %>
+                <i class="fa-regular fa-heart" style="font-size: 1.5em;"></i>
+              <% end %>
+              <%= @achievement.achievement_favorites.count %> いいね
+            <% end %></td>
+        <td class="table-active text-right">投稿者：<%= @achievement.user.nickname %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <table class="table">
+      <tbody>
+        <% @achievement.achievement_comments.each do |comment| %>
+        <tr>
+          <td class="text-center">
+            <% if comment.user.profile_image.attached? %>
+              <%= image_tag(comment.user.profile_image, size: '50x50', style: 'border-radius: 50%;') %><br>
+            <% else %>
+              <%= image_tag('no_image.jpg', size: "50x50", style: 'border-radius: 50%;') %><br>
+            <% end %>
+            <%= comment.user.nickname %>
+          </td>
+
+          <td class="table-light">
+            <%= comment.comment %><br>
+              <% if comment.post_image.content_type == "video/mp4" %>
+                <video width="200" height="200" controls>
+                  <source src="<%= rails_blob_path(comment.post_image) %>" type="video/mp4">
+                </video>
+              <% else %>
+                <%= image_tag(comment.post_image, size: "100x100", class: "img-fluid") if comment.post_image.attached? %><br>
+              <% end %>
+            <br>
+            <%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>
+          </td>
+          <% if comment.user == current_user %>
+            <td>
+              <%= link_to "削除", achievement_achievement_comment_path(@achievement), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
+            </td>
+          <% end %>
+
+        </tr>
+         <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <table class="table">
+      <tbody>
+        <%= form_with model: [@achievement, @achievement_comment], method: :post do |f| %>
+          <tr>
+            <th class="table-info text-left">コメント</th>
+            <td class="table-light"><%= f.text_area :comment, rows: '5', placeholder: "コメントを入力し、「送信する」を押してください。", class: "form-control" %></td>
+          </tr>
+          <tr>
+            <th class="table-info text-left">ファイル</th>
+            <td class="table-light">
+              <div style="display: flex; align-items: center;">
+                  <%= f.file_field :post_image %>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    <div class='text-right'>
+       <%= f.submit "送信する", class: 'btn btn-success' %>
+    <% end %>
+    </div>
+  </div>
+</div>
+

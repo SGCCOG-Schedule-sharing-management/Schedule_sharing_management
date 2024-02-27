@@ -1,0 +1,62 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container text-center">
+  <h3>ようこそ！<br>Legato Schedule へ♪</h3>
+  <%= image_tag 'logo.jpg', alt: 'ロゴ', style: 'border-radius: 50%; border: 5px solid #EA930A;' %><br>
+  作成したグループ毎の日程を調整や、<br>
+  メンバーの出欠管理をすることができます。
+
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
+        <ul class="nav flex-column">
+          <li class="nav-item"><%= link_to admin_users_path, class: 'nav-link text-dark' do %>
+            <i class="fa-solid fa-user" style="font-size: 3em;"></i> <br>ユーザー管理
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
+        <ul class="nav flex-column">
+          <li class="nav-item"><%= link_to admin_group_participation_applications_path, class: 'nav-link text-dark' do %>
+            <i class="fa-regular fa-thumbs-up" style="font-size: 3em;"></i> <br>申請一覧
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
+        <ul class="nav flex-column">
+          <li class="nav-item"><%= link_to admin_groups_path, class: 'nav-link text-dark' do %>
+            <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
+        <ul class="nav flex-column">
+          <li class="nav-item"><%= link_to admin_schedules_path, class: 'nav-link text-dark' do %>
+            <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定管理
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

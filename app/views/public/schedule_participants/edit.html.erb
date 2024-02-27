@@ -1,0 +1,69 @@
+<% if flash[:notice].present? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% elsif flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% elsif flash[:success].present? %>
+  <div class="alert alert-success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<div class="container mx-auto">
+  <h6>スケジュール出欠ステータス変更</h6>
+  <% Rails.logger.info("Schedule in View: #{(@schedule_participant && @schedule_participant.schedule).inspect}") %>
+  
+  <table class="table">
+    
+    <tbody>
+      <% if @schedule_participant && @schedule_participant.schedule %>
+      <tr>
+        <th class="table-secondary">グループ名</th>
+        <td class="table-light"><%= link_to @schedule_participant.schedule.group.title, group_path(@schedule_participant.schedule.group_id) %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">分類</th>
+        <td class="table-light"><%= @schedule_participant.schedule.classification_i18n %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <th class="table-secondary">予定日</th>
+        <td class="table-light"><%= @schedule_participant.schedule.start_time.present? ? @schedule_participant.schedule.start_time.strftime("%Y年%m月%d日(%a)") : '未登録' %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">場所</th>
+        <td class="table-light"><%= @schedule_participant.schedule.location.present? ? @schedule_participant.schedule.location : '未登録' %></td>
+      </tr>
+      <tr>
+        <th class="table-secondary">内容</th>
+        <td class="table-light"><%= @schedule_participant.schedule.content.present? ? @schedule_participant.schedule.content : '未登録' %></td>
+      </tr>
+      <tr>
+        
+        <th class="table-secondary">現在の出欠ステータス</th>
+        <td class="table-light"><%= @schedule_participant.attendance_status_i18n %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  ※以下より出欠ステータスの変更を送信してください※
+  <%= form_with model: @schedule_participant, url: schedule_schedule_participant_path(@schedule_participant.schedule), method: :patch do |f| %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="table-info">出欠ステータスの変更</th>
+        <% ScheduleParticipant.attendance_statuses.keys.each do |status| %>
+        <td class="table-light">
+          <%= f.radio_button :attendance_status, status %>
+            <%= f.label :attendance_status, I18n.t("enums.schedule_participant.attendance_status.#{status}") %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+      <%= f.submit '回答送信', class: 'btn btn-success' %>
+    <% end %>  
+
+</div>
