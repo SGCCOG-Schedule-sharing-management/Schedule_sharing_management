@@ -23,7 +23,7 @@
               <% if @group.group_image.attached? %>
                 <%= image_tag @group.group_image, size: "200x200", class: "img-fluid" %>
               <% else %>
-                <%= image_tag 'no_image_square', size: "200x200", class: "img-fluid" %>
+                <%= image_tag 'logo', size: "200x200", class: "img-fluid" %>
               <% end %>
             </td>
             <td></td>
@@ -53,7 +53,9 @@
             <% if group_status =='承認済み' %>
                 <%= content_tag :span, '参加中', class: 'text-success' %>
             <% elsif group_status =='未処理' %>
-                <%= content_tag :span, '承認待ち', class: 'text-secondary' %>
+                <%= content_tag :span, '承認待ち', class: 'text-info' %>
+            <% elsif group_status =='却下済み' %>
+                <%= content_tag :span,'却下', class: 'text-danger' %></br>
             <% else %>
                 <%= "#{group_status}" %></br>
             <% end %>
@@ -61,10 +63,14 @@
             <%= link_to '申請状況確認', group_group_participation_application_path(@group.id, @group_status&.id) if @group_status&.id.present? %>
 
             <% if group_status =='承認済み' or group_status =='未処理' %>
+            <% elsif group_status =='却下済み' %>
+              <%= link_to new_group_participation_application_path(group_id: @group.id), class: 'btn btn-primary' do %>
+                <i class="fa-solid fa-right-to-bracket"></i> 再申請する
+              <% end %>
             <% else %>
-                <%= link_to new_group_participation_application_path(group_id: @group.id), class: 'btn btn-primary' do %>
-                  <i class="fa-solid fa-right-to-bracket"></i> このグループに参加する
-                <% end %>
+              <%= link_to new_group_participation_application_path(group_id: @group.id), class: 'btn btn-primary' do %>
+                <i class="fa-solid fa-right-to-bracket"></i> 参加申請する
+              <% end %>
             <% end %></td>
         </tr>
         </tbody>

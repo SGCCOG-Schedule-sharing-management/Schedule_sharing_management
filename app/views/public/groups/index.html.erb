@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<div class="row justify-content-center">
+<div class="row justify-content-left">
   <style>
     .card-img-top {
       width: 100%;
@@ -30,7 +30,7 @@
   <% groups_with_dates.sort_by(&:actual_date).each do |group| %>
     <div class="col-lg-2 col-md-2 col-sm-6 mb-3">
       <div class="card">
-        <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
+        <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('logo') %>" class="card-img-top" alt="Group Image">
         <div class="card-body">
           <h5 class="card-title"><%= link_to group.title, group_path(group.id) %></h5>
           <p class="card-text"><i class="fa-regular fa-calendar-days"></i> <%= group.actual_date.present? ? group.actual_date.strftime('%Y年%m月%d日(%a)') : '未定' %></p>
@@ -40,7 +40,13 @@
           <p><% if group_status =='承認済み' %>
                <%= content_tag :span, '参加中', class: 'text-success' %>
              <% elsif group_status =='未処理' %>
-               <%= content_tag :span, '承認待ち', class: 'text-secondary' %>
+               <%= content_tag :span, '承認待ち', class: 'text-info' %>
+             <% elsif group_status =='未申請' %>
+               <%= link_to new_group_participation_application_path(group_id: group.id), class: 'btn btn-primary' do %>
+                 <i class="fa-solid fa-right-to-bracket"></i> このグループに参加する
+               <% end %>
+             <% elsif group_status =='却下済み' %>
+               <%= content_tag :span,'却下', class: 'text-danger' %>
              <% else %>
                <%= "ステータス：#{group_status}" %><% end %></p>
         </div>
@@ -49,14 +55,29 @@
   <% end %>
 </div>
 
-<div class="row justify-content-center">
+<div class="row justify-content-left">
   <% groups_without_dates.each do |group| %>
-    <div class="col-lg-2 col-md-2 col-sm-6 mb-3">
+    <div class="col-lg-2 col-md-4 col-sm-4 mb-3">
       <div class="card">
         <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
         <div class="card-body">
-          <h5 class="card-title">開催日：未定</h5>
-          <p class="card-text"><%= link_to group.title, group_path(group.id) %></p>
+          <h5 class="card-title"><%= link_to group.title, group_path(group.id) %></h5>
+          <p class="card-text"><i class="fa-regular fa-calendar-days"></i> 未定</p>
+          <% group_status = current_user_participation_ids.include?(group.id) ? 
+                            current_user.group_participation_applications.find_by(group_id: group.id).application_status_i18n : 
+                            '未申請' %>
+          <p><% if group_status =='承認済み' %>
+               <%= content_tag :span, '参加中', class: 'text-success' %>
+             <% elsif group_status =='未処理' %>
+               <%= content_tag :span, '承認待ち', class: 'text-info' %>
+             <% elsif group_status =='未申請' %>
+               <%= link_to new_group_participation_application_path(group_id: group.id), class: 'btn btn-primary' do %>
+                 <i class="fa-solid fa-right-to-bracket"></i> このグループに参加する
+               <% end %>
+             <% elsif group_status =='却下済み' %>
+               <%= content_tag :span,'却下', class: 'text-danger' %>
+             <% else %>
+               <%= "ステータス：#{group_status}" %><% end %></p>
         </div>
       </div>
     </div>

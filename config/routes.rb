@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :videos
   # ユーザー用
   # URL /users/sign_in ...
   devise_for :users, skip: [:passwords], controllers: {
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    root "homes#index"
+    root "homes#top"
     get '/mypage' => 'users#show', as: 'mypage'
     get '/information/edit' => 'users#edit', as: 'edit_information'
     patch '/information' => 'users#update', as: 'update_information'
@@ -22,7 +23,11 @@ Rails.application.routes.draw do
     end
     resources :groups, only:[:index, :show]
     resources :group_participation_applications, only:[:new, :create, :show]
-    
+    resources :achievements do
+      resources :achievement_comments, only: [:create, :destroy]
+      resource :achievement_favorite, only: [:create, :destroy]
+    end
+   
 
 
   end

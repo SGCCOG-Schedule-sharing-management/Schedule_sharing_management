@@ -13,7 +13,7 @@
 <% end %>
 
 <div class="container mx-auto">
-  <h6 class="text-center mb-0">Admin グループ一覧画面</h6>
+  <h6 class="text-center mb-0">グループAll</h6>
   <div class="text-right">
     <%= link_to new_admin_group_path, class: 'btn btn-primary' do %>
       <i class="fa-solid fa-circle-plus"></i> 新しいグループ作成
@@ -26,7 +26,7 @@
 <% groups_with_dates = @groups.reject { |group| group.actual_date.nil? } %>
 <% groups_without_dates = @groups.select { |group| group.actual_date.nil? } %>
 
-<div class="row justify-content-center">
+<div class="row justify-content-left">
   <style>
     .card-img-top {
       width: 100%;
@@ -37,9 +37,9 @@
   </style>
 
   <% groups_with_dates.sort_by(&:actual_date).each do |group| %>
-    <div class="col-lg-2 col-md-2 col-sm-6 mb-3">
+    <div class="col-lg-2 col-md-4 col-sm-4 mb-3">
       <div class="card">
-        <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
+        <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('logo') %>" class="card-img-top" alt="Group Image">
         <div class="card-body">
           <h5 class="card-title"><%= link_to group.title, admin_group_path(group.id) %></h5>
           <p class="card-text"><i class="fa-regular fa-calendar-days"></i> <%= group.actual_date.present? ? group.actual_date.strftime('%Y年%m月%d日(%a)') : '未定' %></p>
@@ -53,8 +53,8 @@
       <div class="card">
         <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
         <div class="card-body">
-          <h5 class="card-title">開催日：未定</h5>
-          <p class="card-text"><%= link_to group.title, admin_group_path(group.id) %></p>
+          <h5 class="card-title"><%= link_to group.title, admin_group_path(group.id) %></h5>
+          <p class="card-text"><i class="fa-regular fa-calendar-days"></i> 未定</p>
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 class Public::SchedulesController < ApplicationController
-# 例: ApplicationController もしくは適切な場所でのコントローラーのアクション内
 
   def index
     # カレントユーザーが参加しているグループのIDを取得
@@ -17,6 +16,8 @@ class Public::SchedulesController < ApplicationController
     Rails.logger.info("Debug: #{@schedule_participant.inspect}")
     @schedule_participant = ScheduleParticipant.find_by(schedule_id: params[:id], user_id: current_user.id)
     @planned_participants = @schedule.schedule_participants.where(attendance_status: ['joining'])
+    @achievements = Achievement.where(schedule_id: [@schedule])
+
   end
 
 end

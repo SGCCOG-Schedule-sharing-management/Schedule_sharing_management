@@ -51,10 +51,10 @@
       <th class="table-secondary text-left">内容</th>
       <td class="table-light"><%= @schedule.content.present? ? @schedule.content : '未登録' %></td>
     </tr>
-    <!--tr>
+    <tr>
       <th class="table-secondary text-left">参加予定者</th>
-      <td class="table-light"><!%= @schedule_participant.user.nickname %></td>
-    </tr-->
+      <td class="table-light"><%= link_to @schedule_participant.user.nickname, admin_user_path(@schedule_participant.user), class: 'btn btn-light' %></td>
+    </tr>
   </tbody>
 </table>
 </div>

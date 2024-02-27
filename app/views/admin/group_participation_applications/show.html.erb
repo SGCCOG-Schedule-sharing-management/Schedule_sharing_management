@@ -43,15 +43,16 @@
     </tr>
     <tr>
       <th class="table-info">申請ステータス</th>
-      <td class="table-light"><%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
+      <td class="table-light">
           現在のステータス：<%= now_status = @application.application_status_i18n %></br>　↓　</br>
+          <%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
           <% if now_status == "未処理" %>
-            <%= f.radio_button :application_status, 1 %> 承認　
-            <%= f.radio_button :application_status, 2 %> 却下　
+            <%= f.radio_button :application_status, 1 %> 承認
+            <%= f.radio_button :application_status, 2 %> 却下
           <% elsif now_status == "承認済み" %>
-            <%= f.radio_button :application_status, 2 %> 却下　
+            <%= f.radio_button :application_status, 2 %> 却下
           <% else %>
-            <%= f.radio_button :application_status, 1 %> 承認　
+            <%= f.radio_button :application_status, 1 %> 承認
           <% end %></td>
     </tr>
   </tbody>
@@ -59,7 +60,7 @@
   <%= link_to admin_group_participation_applications_path, class: 'btn btn-primary' do %>
     <i class="fa-regular fa-circle-left"></i> 申請一覧ページへ
   <% end %>
-  <%= f.submit "ステータス変更", class: "btn btn-secondary" %>
+  <%= f.submit "ステータス変更", class: "btn btn-success" %>
   <% end %>
 </div>
 

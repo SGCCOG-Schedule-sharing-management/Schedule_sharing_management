@@ -22,7 +22,7 @@
             <% if @group.group_image.attached? %>
               <%= image_tag @group.group_image, size: "200x200", class: "img-fluid" %>
             <% else %>
-              <%= image_tag 'no_image_square', size: "200x200", class: "img-fluid" %>
+              <%= image_tag 'logo', size: "200x200", class: "img-fluid" %>
             <% end %>
           </td>
           <td class="text-right"><%= link_to edit_admin_group_path(@group), class: 'btn btn-secondary' do %>
@@ -49,6 +49,22 @@
           <th class="table-secondary">本番場所</th>
           <td class="table-light"><%= @group.production_location.present? ? @group.production_location : '未定' %></td>
         </tr>
+        <tr>
+          <th class="table-secondary">参加メンバー</th>
+          <td class="table-light">
+            <% @participation_applications.each do |application| %>
+              <% if application.application_status == 'approved' %>
+                <% if application.user.present? %>
+                  <%= link_to application.user.nickname, admin_user_path(application.user), class: 'btn btn-light' %>
+                <% else %>
+                  <span class="text-muted">ユーザーが存在しません</span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+
+
       </tbody>
     </table>
 
