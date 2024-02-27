@@ -17,7 +17,7 @@ end
   private
 
   def achievement_comment_params
-    params.require(:achievement_comment).permit(:comment)
+    params.require(:achievement_comment).permit(:comment, :post_image)
   end
   
 end

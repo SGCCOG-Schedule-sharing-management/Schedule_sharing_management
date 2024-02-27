@@ -47,7 +47,18 @@
       </tr>
       <tr>
         <th class="table-secondary">ファイル</th>
-        <td class="table-light"><%= image_tag(@achievement.post_image, size: "200x200", class: "img-fluid") %></td>
+        <td class="table-light">  <% if @achievement.post_image.attached? %>
+          <% if @achievement.post_image.content_type == "video/mp4" %>
+            <video width="200" height="200" controls>
+              <source src="<%= rails_blob_path(@achievement.post_image) %>" type="video/mp4">
+            </video>
+            <%= video_tag rails_blob_path(@achievement.post_image) %>
+            <% else %>
+              <%= image_tag url_for(@achievement.post_image), size: "200x200", class: "img-fluid" %>
+            <% end %>
+          <% else %>
+            ファイルなし
+          <% end %></td>
         <td class="table-light"><%= f.file_field :post_image, class: "form-control" %></td>
       </tr>
     </tbody>

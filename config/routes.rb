@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :videos
   # ユーザー用
   # URL /users/sign_in ...
   devise_for :users, skip: [:passwords], controllers: {
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
       resources :achievement_comments, only: [:create, :destroy]
       resource :achievement_favorite, only: [:create, :destroy]
     end
+   
 
 
   end

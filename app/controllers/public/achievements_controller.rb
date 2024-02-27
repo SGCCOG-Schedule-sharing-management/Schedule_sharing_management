@@ -37,6 +37,7 @@ end
   def show
     @achievement = Achievement.find(params[:id])
     @achievement_comment = AchievementComment.new
+    @video = Video.new
   end
 
   def edit
