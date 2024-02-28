@@ -37,19 +37,19 @@
           <ul class="navbar-nav">
             <% if admin_signed_in? %>
               <li class="nav-item"><%= link_to admin_users_path, class: 'nav-link' do %>
-                <i class="fa-solid fa-user"></i> ユーザー一覧 
+                <i class="fa-solid fa-user"></i> ユーザー一覧
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to admin_group_participation_applications_path, class: 'nav-link' do %>
-                <i class="fa-regular fa-thumbs-up"></i> 申請一覧 
+                <i class="fa-regular fa-thumbs-up"></i> 申請一覧
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to admin_schedules_path, class: 'nav-link' do %>
-                <i class="fa-regular fa-calendar-days"></i> 予定管理 
+                <i class="fa-regular fa-calendar-days"></i> 予定管理
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to admin_groups_path, class: 'nav-link' do %>
-                <i class="fa-solid fa-people-group"></i> グループ一覧 
+                <i class="fa-solid fa-people-group"></i> グループ一覧
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link' do %>
@@ -60,25 +60,24 @@
             <% elsif user_signed_in? %>
               <li class="nav-item"><%= link_to "ようこそ、#{current_user.nickname}さん!", mypage_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to mypage_path, class: 'nav-link' do %>
-                <i class="fa-solid fa-id-card"></i> マイページ 
+                <i class="fa-solid fa-id-card"></i> マイページ
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to schedules_path, class: 'nav-link' do %>
-                <i class="fa-regular fa-calendar-days"></i> 予定一覧 
+                <i class="fa-regular fa-calendar-days"></i> 予定一覧
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to groups_path, class: 'nav-link' do %>
-                <i class="fa-solid fa-people-group"></i> グループ一覧 
+                <i class="fa-solid fa-people-group"></i> グループ一覧
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to destroy_user_session_path, method: :delete, class: 'nav-link' do %>
                 <i class="fa-solid fa-right-from-bracket"></i> ログアウト
                 <% end %>
               </li>
-
             <% else %>
-              <li class="nav-item"><%= link_to '#', class: 'nav-link' do %>
-                <i class="fa-regular fa-calendar-days"></i> 本番一覧
+              <li class="nav-item"><%= link_to new_admin_session_path, class: 'nav-link' do %>
+                <i class="fa-solid fa-lock"></i> 管理者ログイン
                 <% end %>
               </li>
               <li class="nav-item"><%= link_to new_user_registration_path, class: 'nav-link' do %>

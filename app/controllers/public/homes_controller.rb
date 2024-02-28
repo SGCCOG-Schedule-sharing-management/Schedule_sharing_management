@@ -9,4 +9,8 @@ class Public::HomesController < ApplicationController
     sign_in user
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
+  
+  def after_sign_in_path_for(resource)
+    new_user_session_path
+  end
 end

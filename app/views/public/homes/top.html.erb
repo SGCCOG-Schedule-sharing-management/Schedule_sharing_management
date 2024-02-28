@@ -23,8 +23,14 @@
     <div class="col-md-3">
       <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
         <ul class="nav flex-column">
-          <li class="nav-item"><%= link_to groups_path, class: 'nav-link text-dark' do %>
-            <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+          <% if current_user.present? %>
+            <li class="nav-item"><%= link_to groups_path, class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+            <% end %>
+          <% else %>
+            <li class="nav-item"><%= link_to new_user_session_path, class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+            <% end %>
           <% end %>
         </ul>
       </div>
@@ -33,8 +39,14 @@
     <div class="col-md-3">
       <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
         <ul class="nav flex-column">
-          <li class="nav-item"><%= link_to schedules_path, class: 'nav-link text-dark' do %>
-            <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定一覧
+          <% if current_user.present? %>
+            <li class="nav-item"><%= link_to schedules_path, class: 'nav-link text-dark' do %>
+              <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定一覧
+            <% end %>
+          <% else %>
+            <li class="nav-item"><%= link_to new_user_session_path, class: 'nav-link text-dark' do %>
+              <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定一覧
+            <% end %>
           <% end %>
         </ul>
       </div>
