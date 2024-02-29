@@ -37,7 +37,7 @@
             <% if achievement.user.profile_image.present? %>
               <%= image_tag(achievement.user.profile_image, size: "20x20", class: "img-fluid") %>
             <% else %>
-              <%= image_tag('no_image', size: "20x20", class: "img-fluid") %>
+              <%= image_tag('no_image.jpg', size: "20x20", class: "img-fluid") %>
             <% end %>
             <%= achievement.user.nickname %>
           </td>

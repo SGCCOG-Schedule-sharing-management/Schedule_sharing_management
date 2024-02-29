@@ -51,7 +51,7 @@
   <% groups_without_dates.each do |group| %>
     <div class="col-lg-2 col-md-2 col-sm-6 mb-3">
       <div class="card">
-        <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square') %>" class="card-img-top" alt="Group Image">
+        <img src="<%= group.group_image.attached? ? url_for(group.group_image) : image_path('no_image_square.jpg') %>" class="card-img-top" alt="Group Image">
         <div class="card-body">
           <h5 class="card-title"><%= link_to group.title, admin_group_path(group.id) %></h5>
           <p class="card-text"><i class="fa-regular fa-calendar-days"></i> 未定</p>

@@ -22,7 +22,7 @@
             <% if @group.group_image.attached? %>
               <%= image_tag @group.group_image, size: "200x200", class: "img-fluid" %>
             <% else %>
-              <%= image_tag 'logo', size: "200x200", class: "img-fluid" %>
+              <%= image_tag 'logo.jpg', size: "200x200", class: "img-fluid" %>
             <% end %>
           </td>
           <td class="text-right"><%= link_to edit_admin_group_path(@group), class: 'btn btn-secondary' do %>
