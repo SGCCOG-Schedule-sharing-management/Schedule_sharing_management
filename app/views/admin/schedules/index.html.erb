@@ -56,7 +56,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody class="table-light">
         <% future_schedules.each do |schedule| %>
           <tr>
             <td><%= link_to schedule.start_time.strftime("%Y-%m-%d"), admin_schedule_path(schedule.id) %></td>
