@@ -17,7 +17,7 @@
           <td class="table-light"><% if user.profile_image.attached? %>
                 <%= link_to image_tag(user.profile_image, size: "50x50"), admin_user_path(user.id) %></br>
               <% else %>
-                <%= link_to image_tag( 'no_image', size: "50x50"), admin_user_path(user.id) %></br>
+                <%= link_to image_tag( 'no_image.jpg', size: "50x50"), admin_user_path(user.id) %></br>
               <% end %><%= link_to user.nickname, admin_user_path(user.id) %></td>
           <td class="table-light"><%= user.first_name %> <%= user.last_name %></td>
           <% if user.is_active == true %>
