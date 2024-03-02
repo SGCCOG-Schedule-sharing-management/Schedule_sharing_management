@@ -46,24 +46,20 @@
       </tr>
       <tr>
         <th class="table-secondary text-left">ファイル</th>
-<td class="table-light">
-
-  <% if @achievement.post_image.attached? %>
-    <% if @achievement.post_image.content_type == "video/mp4" %>
-      <video width="200" height="200" controls>
-        <source src="<%= rails_blob_path(@achievement.post_image) %>" type="video/mp4">
-      </video>
-    <% else %>
-      <%= image_tag url_for(@achievement.post_image), size: "200x200", class: "img-fluid" %>
-    <% end %>
-  <% else %>
-    ファイルなし
-  <% end %>
-</td>
-
-
-
-
+          <td class="table-light">
+          
+            <% if @achievement.post_image.attached? %>
+              <% if @achievement.post_image.content_type == "video/mp4" %>
+                <video width="200" height="200" controls>
+                  <source src="<%= rails_blob_path(@achievement.post_image) %>" type="video/mp4">
+                </video>
+              <% else %>
+                <%= image_tag url_for(@achievement.post_image), size: "200x200", class: "img-fluid" %>
+              <% end %>
+            <% else %>
+              ファイルなし
+            <% end %>
+          </td>
       </tr>
 
       <tr>
@@ -105,7 +101,7 @@
                   <source src="<%= rails_blob_path(comment.post_image) %>" type="video/mp4">
                 </video>
               <% else %>
-                <%= image_tag(comment.post_image, size: "100x100", class: "img-fluid") if comment.post_image.attached? %><br>
+                <%= image_tag(comment.post_image, size: "150x150", class: "img-fluid") if comment.post_image.attached? %><br>
               <% end %>
             <br>
             <%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>

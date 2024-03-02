@@ -13,7 +13,7 @@
 <% end %>
 
 <div class="container mx-auto">
-<h6>Adminグループ申請詳細(ステータス変更)</h6>
+<h6>グループ申請詳細(ステータス変更)</h6>
 
 <table class="table">
   <tbody>
@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <th class="table-secondary">ユーザー</th>
-      <td class="table-light"><%= @application.user.nickname %></td>
+      <td class="table-light"><%= link_to @application.user.nickname, admin_user_path(@application.user) %></td>
     </tr>
     <tr>
       <th class="table-secondary">本番予定日</th>
@@ -35,7 +35,13 @@
     </tr>
     <tr>
       <th class="table-secondary">コメント</th>
-      <td class="table-light"><%= @application.comment %></td>
+      <td class="table-light">
+        <% if @application.comment.present? %>
+          <%= @application.comment %>
+        <% else %>
+          <span style="color: grey;">...No data...</span>
+        <% end %>
+      </td>
     </tr>
     <tr>
       <th></th>
@@ -44,17 +50,19 @@
     <tr>
       <th class="table-info">申請ステータス</th>
       <td class="table-light">
-          現在のステータス：<%= now_status = @application.application_status_i18n %></br>　↓　</br>
-          <%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
+        現在のステータス：<%= now_status = @application.application_status_i18n %><br>　　↓<br>
+        <%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
           <% if now_status == "未処理" %>
-            <%= f.radio_button :application_status, 1 %> 承認
-            <%= f.radio_button :application_status, 2 %> 却下
+            <%= f.radio_button :application_status, 1 %> <span style="color: green;">承認　</span>
+            <%= f.radio_button :application_status, 2 %> <span style="color: red;">却下</span>
           <% elsif now_status == "承認済み" %>
-            <%= f.radio_button :application_status, 2 %> 却下
+            <%= f.radio_button :application_status, 2 %> <span style="color: red;">却下</span>
           <% else %>
-            <%= f.radio_button :application_status, 1 %> 承認
-          <% end %></td>
+            <%= f.radio_button :application_status, 1 %> <span style="color: green;">承認</span>
+          <% end %>
+      </td>
     </tr>
+
   </tbody>
 </table>
   <%= link_to admin_group_participation_applications_path, class: 'btn btn-primary' do %>

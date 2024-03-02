@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="container mx-auto">
-  <h6>Adminグループ申請一覧</h6>
+  <h6>グループ申請一覧</h6>
 
   <table class="table">
     <thead class="thead-light">
@@ -32,11 +32,23 @@
           <td class="table-light"><%= applying.group.title %></td>
           <td class="table-light">
             <% if applying.application_status == 'approved' %>
-              <%= link_to applying.application_status_i18n, admin_group_participation_application_path(applying.id), class: 'text-success' %>
+              <% if applying.user.present? %>
+                <%= link_to applying.application_status_i18n, admin_group_participation_application_path(applying.id), class: 'text-success' %>
+              <% else %>
+                <span style="color: grey;"><%= applying.application_status_i18n %></span>
+              <% end %>
             <% elsif applying.application_status == 'rejected' %>
-              <%= link_to applying.application_status_i18n, admin_group_participation_application_path(applying.id), class: 'text-danger' %>
+              <% if applying.user.present? %>
+                <%= link_to applying.application_status_i18n, admin_group_participation_application_path(applying.id), class: 'text-danger' %>
+              <% else %>
+                <span style="color: grey;"><%= applying.application_status_i18n %></span>
+              <% end %>  
             <% else %>
-              <%= link_to applying.application_status_i18n, admin_group_participation_application_path(applying.id), class: 'btn btn-primary' %>
+              <% if applying.user.present? %>
+                <%= link_to applying.application_status_i18n, admin_group_participation_application_path(applying.id), class: 'btn btn-primary' %>
+              <% else %>
+                <span style="color: grey;">...No data...</span>
+              <% end %>
             <% end %>
           </td>
         </tr>

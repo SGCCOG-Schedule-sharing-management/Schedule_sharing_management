@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       resources :achievement_comments, only: [:create, :destroy]
       resource :achievement_favorite, only: [:create, :destroy]
     end
-   
+
 
 
   end
@@ -41,8 +41,10 @@ Rails.application.routes.draw do
     get 'top' => 'homes#top', as: 'top'
     resources :groups
     resources :group_participation_applications, only:[:index, :show, :update]
-    resources :users, only:[:index, :show, :update]
-    resources :schedules
+    resources :users, only:[:index, :show, :update, :destroy]
+    resources :schedules do
+      resources :schedule_participants, only:[:index]
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

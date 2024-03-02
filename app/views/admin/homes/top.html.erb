@@ -22,8 +22,14 @@
     <div class="col-md-3">
       <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
         <ul class="nav flex-column">
-          <li class="nav-item"><%= link_to admin_users_path, class: 'nav-link text-dark' do %>
-            <i class="fa-solid fa-user" style="font-size: 3em;"></i> <br>ユーザー管理
+          <% if current_admin %>
+            <li class="nav-item"><%= link_to admin_users_path, class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-user" style="font-size: 3em;"></i> <br>ユーザー管理
+            <% end %>
+          <% else %>
+            <li class="nav-item"><%= link_to new_admin_session_path, class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-user" style="font-size: 3em;"></i> <br>ユーザー管理
+            <% end %>
           <% end %>
         </ul>
       </div>
@@ -32,8 +38,14 @@
     <div class="col-md-3">
       <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
         <ul class="nav flex-column">
-          <li class="nav-item"><%= link_to admin_group_participation_applications_path, class: 'nav-link text-dark' do %>
-            <i class="fa-regular fa-thumbs-up" style="font-size: 3em;"></i> <br>申請一覧
+          <% if current_admin %>
+            <li class="nav-item"><%= link_to admin_group_participation_applications_path, class: 'nav-link text-dark' do %>
+              <i class="fa-regular fa-thumbs-up" style="font-size: 3em;"></i> <br>申請一覧
+            <% end %>
+          <% else %>
+            <li class="nav-item"><%= link_to new_admin_session_path, class: 'nav-link text-dark' do %>
+              <i class="fa-regular fa-thumbs-up" style="font-size: 3em;"></i> <br>申請一覧
+            <% end %>
           <% end %>
         </ul>
       </div>
@@ -42,8 +54,14 @@
     <div class="col-md-3">
       <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
         <ul class="nav flex-column">
-          <li class="nav-item"><%= link_to admin_groups_path, class: 'nav-link text-dark' do %>
-            <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+          <% if current_admin %>
+            <li class="nav-item"><%= link_to admin_groups_path, class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+            <% end %>
+          <% else %>
+            <li class="nav-item"><%= link_to new_admin_session_path, class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-people-group" style="font-size: 3em;"></i> <br>グループ一覧
+            <% end %>
           <% end %>
         </ul>
       </div>
@@ -52,8 +70,14 @@
     <div class="col-md-3">
       <div class='card' style="background-color: #fff; padding: 10px;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer;'" onmouseout="this.style.backgroundColor='#fff';">
         <ul class="nav flex-column">
-          <li class="nav-item"><%= link_to admin_schedules_path, class: 'nav-link text-dark' do %>
-            <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定管理
+          <% if current_admin %>
+            <li class="nav-item"><%= link_to admin_schedules_path, class: 'nav-link text-dark' do %>
+              <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定管理
+            <% end %>
+          <% else %>
+            <li class="nav-item"><%= link_to new_admin_session_path, class: 'nav-link text-dark' do %>
+              <i class="fa-regular fa-calendar-days" style="font-size: 3em;"></i> <br>予定管理
+            <% end %>
           <% end %>
         </ul>
       </div>
