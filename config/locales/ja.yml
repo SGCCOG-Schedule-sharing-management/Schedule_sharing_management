@@ -205,3 +205,8 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  devise:
+    sessions:
+      signed_out: "ログアウトしました。"
+      admin:
+        signed_in: "管理者としてログインしました。"
