@@ -13,7 +13,7 @@
 <% end %>
 
 <div class="container mx-auto">
-<h6 class="text-center">Admin スケジュール詳細</h6>
+<h6 class="text-center">スケジュール詳細</h6>
 
 <div class="text-right">
   <%= link_to edit_admin_schedule_path(@schedule), class: 'btn btn-secondary' do %>
@@ -53,7 +53,15 @@
     </tr>
     <tr>
       <th class="table-secondary text-left">参加予定者</th>
-      <td class="table-light"><%= link_to @schedule_participant.user.nickname, admin_user_path(@schedule_participant.user), class: 'btn btn-light' %></td>
+      <td class="table-light">
+        <% if @schedule_participants.any? %>
+            <% @schedule_participants.each do |participant| %>
+              <%= link_to participant.user.nickname, admin_user_path(participant.user), class: 'btn btn-light' %>
+            <% end %>
+        <% else %>
+          参加者募集中
+        <% end %>
+      </td>
     </tr>
   </tbody>
 </table>

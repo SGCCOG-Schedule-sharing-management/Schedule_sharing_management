@@ -19,7 +19,9 @@ class Admin::SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find(params[:id])
-    @schedule_participant = ScheduleParticipant.find_by(id: params[:id])
+    #@schedule_participant = ScheduleParticipant.find_by(id: params[:id])
+    #@schedule_participants = @schedule.schedule_participants.where(attendance_status: ['joining'])
+    @schedule_participants = @schedule.schedule_participants.where(attendance_status: 'joining')
     if @schedule.nil?
       flash[:notice] = "この日の予定はありません"
     end
