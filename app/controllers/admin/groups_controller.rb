@@ -1,4 +1,5 @@
 class Admin::GroupsController < ApplicationController
+  before_action :authenticate_admin!
 
   def new
     @newgroup = Group.new
@@ -6,11 +7,11 @@ class Admin::GroupsController < ApplicationController
 
   def create
     @newgroup = Group.new(group_params)
-    if @newgroup.save!
+    if @newgroup.save
       flash[:success] = "新しいグループを作成しました"
       redirect_to admin_group_path(@newgroup)
     else
-      flash[:error] = "新しいグループを作成できませんでした"
+      flash.now[:error] = "新しいグループを作成できませんでした: " + @newgroup.errors.full_messages.join(", ")
       @group = Group.all
       render :new
     end
@@ -61,4 +62,7 @@ class Admin::GroupsController < ApplicationController
     params.require(:group).permit(:title, :content, :actual_date, :production_location, :group_image)
   end
 
+  def authenticate_admin!
+    redirect_to new_admin_session_path unless current_admin
+  end
 end

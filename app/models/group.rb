@@ -1,4 +1,6 @@
 class Group < ApplicationRecord
+  validates :title, presence: true
+  
   has_many :group_participation_applications, dependent: :destroy
   attribute :actual_date, :date
   attribute :actual_time, :time

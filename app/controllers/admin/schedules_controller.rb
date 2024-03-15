@@ -1,4 +1,6 @@
 class Admin::SchedulesController < ApplicationController
+  before_action :authenticate_admin!
+  
   def new
     @groups = Group.all
     @newschedule = Schedule.new
@@ -12,7 +14,7 @@ class Admin::SchedulesController < ApplicationController
       flash[:success] = "新しいスケジュールを作成しました"
       redirect_to admin_schedules_path
     else
-      flash[:error] = "新しいスケジュールを作成できませんでした"
+      flash.now[:error] = "新しいスケジュールを作成できませんでした: " + @newschedule.errors.full_messages.join(", ")
       render :new
     end
   end
@@ -61,12 +63,14 @@ class Admin::SchedulesController < ApplicationController
   
   private
 
-def schedule_params
-  params.require(:schedule).permit(:group_id, :start_time, :start, :end, :location, :content, :other_attribute, :classification).tap do |whitelisted|
-    whitelisted[:classification] = whitelisted[:classification].to_i
-end
-end
+  def schedule_params
+      params.require(:schedule).permit(:group_id, :start_time, :start, :end, :location, :content, :other_attribute, :classification).tap do |whitelisted|
+        whitelisted[:classification] = whitelisted[:classification].to_i
+    end
+  end
 
-
+  def authenticate_admin!
+    redirect_to new_admin_session_path unless current_admin
+  end
 
 end

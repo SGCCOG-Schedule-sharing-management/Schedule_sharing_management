@@ -1,4 +1,6 @@
 class Admin::UsersController < ApplicationController
+  before_action :authenticate_admin!
+  
   def index
     @users = User.where.not(last_name: "guest")
   end
@@ -42,6 +44,10 @@ class Admin::UsersController < ApplicationController
   # ストロングパラメータ
   def user_params
     params.require(:user).permit(:is_active)
+  end
+  
+  def authenticate_admin!
+    redirect_to new_admin_session_path unless current_admin
   end
 
 end
