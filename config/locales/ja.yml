@@ -1,5 +1,19 @@
 ja:
   activerecord:
+    attributes:
+      schedule:
+        start_time: "予定日"
+    errors:
+      messages:
+        blank: "%{attribute}を入力してください"
+      models:
+        schedule:
+          attributes:
+            start_time:
+              blank: "予定日を入力してください"
+        group:
+          blank: "を入力してください"
+  activerecord:
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
@@ -41,7 +55,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -67,7 +81,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月

@@ -1,4 +1,6 @@
 class Admin::GroupParticipationApplicationsController < ApplicationController
+  before_action :authenticate_admin!
+  
   def index
     #@requests_all = GroupParticipationApplication.all
     @requests_all = GroupParticipationApplication.all.sort_by(&:created_at).reverse
@@ -38,5 +40,9 @@ end
   def application_params
     params.require(:group_participation_application).permit(:application_status)
         .transform_values { |value| value.to_i }
+  end
+  
+  def authenticate_admin!
+    redirect_to new_admin_session_path unless current_admin
   end
 end
