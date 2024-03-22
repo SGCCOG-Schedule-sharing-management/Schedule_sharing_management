@@ -14,7 +14,7 @@
 
 <div class="container mx-auto">
 <h6>グループ申請詳細(ステータス変更)</h6>
-
+<%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
 <table class="table">
   <tbody>
     <tr>
@@ -51,7 +51,7 @@
       <th class="table-info">申請ステータス</th>
       <td class="table-light">
         現在のステータス：<%= now_status = @application.application_status_i18n %><br>　　↓<br>
-        <%= form_with model: @application, url: admin_group_participation_application_path(@application), method: :patch do |f| %>
+        
           <% if now_status == "未処理" %>
             <%= f.radio_button :application_status, 1 %> <span style="color: green;">承認　</span>
             <%= f.radio_button :application_status, 2 %> <span style="color: red;">却下</span>
